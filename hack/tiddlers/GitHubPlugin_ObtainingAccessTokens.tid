@@ -1,0 +1,17 @@
+created: 20171113195532722
+modified: 20171114034203977
+tags: 
+title: GitHubPlugin/ObtainingAccessTokens
+type: text/vnd.tiddlywiki
+
+<a
+  target="_"
+  href="https://github.com/settings/tokens/new"
+  class="mdc-button mdc-button--raised"
+  style="color: white;"
+>Generate New Token</a>
+<a
+  target="_"
+  href="https://github.com/settings/tokens"
+  class="mdc-button"
+>View Existing Tokens</a>

@@ -1,0 +1,39 @@
+caption: GitHub Plugin
+created: 20171108090424876
+modified: 20171114035429653
+tags: TiddlyWikiPlugins
+title: GitHubPlugin
+type: text/vnd.tiddlywiki
+
+\define pluginGroup() ustuehler
+\define pluginName() firebase
+\define pluginTitle() $:/plugins/$(pluginGroup)$/$(pluginName)$
+\define pluginTiddler(title) $(pluginTitle)$/$title$
+\define pluginDocPrefix() $(currentTiddler)$/
+
+<table>
+ <tr>
+    <th>Plugin tiddler</th>
+    <td>$:/plugins/ustuehler/github</td>
+  </tr>
+  <tr>
+    <th>Dependencies</th>
+    <td>$:/plugins/ustuehler/component</td>
+  </tr>
+  <tr>
+    <th>Component Status</th>
+    <td>$:/status/GitHub</td>
+  </tr>
+</table>
+
+! Purpose
+
+The aim of the ~GitHubPlugin for TiddlyWiki is to provide a SyncAdaptor that syncronises the TiddlerStore with a branch in a GitHub repository.
+
+! Usage
+
+You should start by reading the [[setup guide|GitHubPlugin/Setup]].
+
+! Documentation
+
+{{{ [prefix<pluginDocPrefix>sort[]] }}}

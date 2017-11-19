@@ -1,0 +1,23 @@
+created: 20171112232838681
+modified: 20171114035518928
+title: GitHubPlugin/SignIn
+type: text/vnd.tiddlywiki
+
+\define signedIn()
+[[$:/status/GitHub]field:signed-in[true]]
+\end
+\define signedOut()
+[[$:/status/GitHub]field:signed-in[false]]
+\end
+
+<$list variable="" filter=<<signedIn>>>
+
+{{$:/plugins/ustuehler/github/ui/SignedIn}}
+
+</$list>
+
+<$list variable="" filter=<<signedOut>>>
+
+{{$:/plugins/ustuehler/github/ui/SignIn}}
+
+</$list>

@@ -10,7 +10,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "build": "node index.js editions/github --build",
+    "build": "node index.js editions/github --build && node index.js editions/hack --build",
     "test": "node index.js editions/test --build 2>&1 | tee test.out; ! grep -q ^Failures: test.out"
   },
   "repository": {

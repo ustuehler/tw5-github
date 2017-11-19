@@ -1,0 +1,41 @@
+created: 20171111235149192
+modified: 20171113224234138
+span: 7
+tags: 
+title: GitHubPlugin/Development/BrowserConsole
+type: text/vnd.tiddlywiki
+
+You can access the plugin's library functions which encapsulate all access to the GitHub API from the browser console as `$tw.utils.github`.
+
+; Example: Access the plugin object
+
+```javascript
+var github = $tw.modules.execute('$:/plugins/ustuehler/github')
+```
+
+; Example: Get a user's profile data
+
+```javascript
+github.getUserProfile('ustuehler')
+  .then(function(profile) {
+    console.log(profile)
+  })
+```
+
+; Example: Sign in with access token
+
+```javascript
+github.signIn(accessToken)
+  .then(function(user) {
+    console.log('Signed in as ' + user.login + '.')
+  })
+```
+
+; Example: List the signed-in user's repositories
+
+```javascript
+github.getUserRepos()
+  .then(function(repos) {
+    console.log('Retrieved ' + repos.length + ' repositories.')
+  })
+```

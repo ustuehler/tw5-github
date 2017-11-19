@@ -1,0 +1,45 @@
+created: 20171114034551701
+modified: 20171114045944909
+tags: 
+title: GitHubPlugin/Tests/WriteFile
+type: text/vnd.tiddlywiki
+
+\define signedIn()
+[[$:/status/GitHub]field:signed-in[true]]
+\end
+\define signedOut()
+[[$:/status/GitHub]field:signed-in[false]]
+\end
+\define openFileOnGitHub(path:"" file:"")
+<$macrocall $name="github-blob-button"
+  org={{$:/config/GitHub/Org}}
+  repo={{$:/config/GitHub/Repo}}
+  branch={{$:/config/GitHub/Branch}}
+  file="$path$/$file$"/>
+\end
+
+''Given'' the user is signed in
+
+{{GitHubPlugin/SignIn}}
+
+<$list variable="" filter=<<signedIn>>>
+
+''And'' the tiddler repository location is configured as
+
+{{GitHubPlugin/SyncSettings}}
+
+''When'' the user activates the button
+
+{{Test||$:/plugins/ustuehler/github/ui/Buttons/write-file}}
+
+''Then'' the tiddler <<currenTiddler>> appears on ~GitHub
+
+<$macrocall $name="openFileOnGitHub"
+  path={{$:/config/GitHub/Path}}
+  file="Test.tid"/>
+
+</$list>
+
+[[Prev|GitHubPlugin/Setup]] |
+[[Up|GitHubPlugin]] |
+[[Next|GitHubPlugin/SyncAdaptor]]

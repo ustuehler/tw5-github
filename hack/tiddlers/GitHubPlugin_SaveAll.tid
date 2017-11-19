@@ -1,0 +1,10 @@
+caption: Save All
+created: 20171112142542206
+list-item-icon: cloud_upload
+modified: 20171112142636202
+span: 4
+tags: $:/tags/DrawerBottom
+title: GitHubPlugin/SaveAll
+type: text/vnd.tiddlywiki
+
+{{SaveToGitHub}}
