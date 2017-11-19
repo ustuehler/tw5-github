@@ -1,0 +1,10 @@
+created: 20171112055410624
+modified: 20171112055423210
+tags: 
+title: $:/plugins/ustuehler/github/ui/Buttons/sign-in
+type: text/vnd.tiddlywiki
+
+<$button class="mdc-button mdc-button--raised">
+<$action-sendmessage $message="tm-github-sign-in"/>
+Sign in
+</$button>

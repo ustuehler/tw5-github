@@ -1,8 +1,12 @@
+# Vim swap files
+.*.sw?
+
 # Created by "tiddlywiki --build"
 /editions/*/output/
 
-# Creted by "npm install"
+# Creted by npm(1)
 /node_modules/
+/npm-debug.log
 
 # Created by the build script
 /index.html

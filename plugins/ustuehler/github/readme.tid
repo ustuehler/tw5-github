@@ -1,0 +1,6 @@
+title: $:/plugins/ustuehler/github/readme
+
+API: http://github-tools.github.io/github/<br>
+Source: https://github.com/github-tools/github
+
+This plugin must be configured before it can be used. Open the [[usage|$:/plugins/ustuehler/github/usage]] tiddler to see how.
