@@ -2,9 +2,12 @@
     "description": "GitHub edition",
     "plugins": [
         "tiddlywiki/highlight",
-	"ustuehler/component",
+	"ustuehler/caption",
+	"ustuehler/core",
 	"ustuehler/github",
-	"ustuehler/caption"
+	"ustuehler/mdc",
+	"ustuehler/mdc-web-cdn",
+	"ustuehler/muuri"
     ],
     "themes": [
 	"ustuehler/material"

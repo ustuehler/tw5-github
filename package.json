@@ -5,11 +5,12 @@
   "main": "index.js",
   "dependencies": {
     "tiddlywiki": "^5.1.15",
-    "tw5-material": "git+https://github.com/ustuehler/tw5-material.git"
+    "tw5-material": "git+https://github.com/ustuehler/tw5-material.git",
+    "tw5-plugin": "git+https://github.com/ustuehler/tw5-plugin.git"
   },
   "devDependencies": {},
   "scripts": {
-    "build": "tiddlywiki --build",
+    "build": "node index.js --build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
