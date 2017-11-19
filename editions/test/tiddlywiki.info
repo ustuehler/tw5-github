@@ -2,6 +2,7 @@
   "description": "ustuehler/github tests",
   "plugins": [
     "tiddlywiki/jasmine",
+    "ustuehler/core",
     "ustuehler/github"
   ],
   "themes": [
