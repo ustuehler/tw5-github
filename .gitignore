@@ -1,5 +1,12 @@
-# npm install
+# Created by "tiddlywiki --build"
+/editions/*/output/
+
+# Creted by "npm install"
 /node_modules/
 
-# npm build
+# Created by the build script
 /index.html
+
+# Created by the test script
+/test.html
+/test.out

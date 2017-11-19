@@ -1,0 +1,16 @@
+{
+  "description": "ustuehler/github tests",
+  "plugins": [
+    "tiddlywiki/jasmine",
+    "ustuehler/github"
+  ],
+  "themes": [
+    "tiddlywiki/vanilla"
+  ],
+  "build": {
+    "index": [
+      "--output",".",
+      "--rendertiddler","$:/core/save/all","test.html","text/plain"
+    ]
+  }
+}

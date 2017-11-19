@@ -10,8 +10,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "build": "node index.js --build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node index.js editions/github --build",
+    "test": "node index.js editions/test --build 2>&1 | tee test.out; ! grep -q ^Failures: test.out"
   },
   "repository": {
     "type": "git",

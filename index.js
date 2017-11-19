@@ -9,7 +9,7 @@ plugin.setPluginsEnv('TIDDLYWIKI_PLUGIN_PATH')
 plugin.setThemesEnv('TIDDLYWIKI_THEME_PATH')
 
 // Pass the command line arguments to the boot kernel
-$tw.boot.argv = ['editions/github'].concat(process.argv.slice(2))
+$tw.boot.argv = process.argv.slice(2)
 
 // Boot the TW5 app
 $tw.boot.boot()
