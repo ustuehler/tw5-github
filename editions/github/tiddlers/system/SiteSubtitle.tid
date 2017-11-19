@@ -1,3 +1,4 @@
 title: $:/SiteSubtitle
+type: text/vnd.tiddlywiki
 
-Plugins
+<span style="font-weight: normal;">v{{package.json##version}}</span>

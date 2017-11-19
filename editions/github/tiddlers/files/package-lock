@@ -1,0 +1,32 @@
+{
+  "name": "tw5-github",
+  "version": "0.1.0",
+  "description": "TiddlyWiki GitHub Edition",
+  "main": "index.js",
+  "dependencies": {
+    "tiddlywiki": "^5.1.15",
+    "tw5-material": "git+https://github.com/ustuehler/tw5-material.git",
+    "tw5-plugin": "git+https://github.com/ustuehler/tw5-plugin.git"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "node index.js editions/github --build",
+    "test": "node index.js editions/test --build 2>&1 | tee test.out; ! grep -q ^Failures: test.out"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ustuehler/tw5-github.git"
+  },
+  "keywords": [
+    "github",
+    "tiddlywiki",
+    "plugin",
+    "syncadaptor"
+  ],
+  "author": "Uwe Stuehler",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/ustuehler/tw5-github/issues"
+  },
+  "homepage": "https://github.com/ustuehler/tw5-github#readme"
+}
