@@ -1,1 +1,5 @@
+# npm install
 /node_modules/
+
+# npm build
+/index.html
