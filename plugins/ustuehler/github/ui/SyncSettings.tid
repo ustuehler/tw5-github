@@ -3,4 +3,4 @@ title: $:/github/SyncSettings
 |[[Organisation or username|$:/config/GitHub/User]] |<$edit-text tiddler="$:/config/GitHub/User" tag="input" default=""/> |
 |[[Repository|$:/config/GitHub/Repository]] |<$edit-text tiddler="$:/config/GitHub/Repo" tag="input" default=""/> |
 |[[Branch|$:/config/GitHub/Branch]] |<$edit-text tiddler="$:/config/GitHub/Branch" tag="input" default=""/> |
-|[[Path to edition|$:/config/GitHub/Path]] |<$edit-text tiddler="$:/config/GitHub/Path" tag="input" default=""/> |
+|[[Path to tiddlers|$:/config/GitHub/Path]] |<$edit-text tiddler="$:/config/GitHub/Path" tag="input" default=""/> |
