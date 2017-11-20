@@ -95,8 +95,8 @@ A sync adaptor module for synchronising with GitHub
     var client = new Client()
     var self = this
 
-    return client.signIn()
-      .then(function (userInfo) {
+    return client.initialise()
+      .then(function (github) {
         // TODO: anything to do to start the synchronisation?
 
         self.client = client

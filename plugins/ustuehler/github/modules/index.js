@@ -28,14 +28,7 @@ The plugin's main logic
     }
 
     Component.call(this, 'GitHub').then(function () {
-      // Assume that the user is initially signed out, but the githubadaptor may have be started with valid credentials already
       self.status.update(signedOutStatus())
-
-      // If we have a global githubadaptor, attempt to sign in automatically to synchronise the plugin status with the githubadaptor status
-      if (self.syncadaptor) {
-        // The promise result is discarded, but the status will be updated to reflect the current sign-in state of the githubadaptor
-        self.signIn()
-      }
     })
   }
 
