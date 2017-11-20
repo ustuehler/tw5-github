@@ -26,6 +26,6 @@ Signing in with your GitHub account lets you synchronize your changes with the G
 
 ''Step 3: Sign in with your ~GitHub account''
 
-{{$:/plugins/ustuehler/github/ui/Buttons/sign-in}}
+{{$:/plugins/ustuehler/github/Buttons/sign-in}}
 
 </$github-signin>

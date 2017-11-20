@@ -30,7 +30,7 @@ type: text/vnd.tiddlywiki
 
 ''When'' the user activates the button
 
-{{Test||$:/plugins/ustuehler/github/ui/Buttons/write-file}}
+{{Test||$:/plugins/ustuehler/github/Buttons/write-file}}
 
 ''Then'' the tiddler <<currenTiddler>> appears on ~GitHub
 
