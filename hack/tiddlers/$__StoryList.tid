@@ -1,3 +1,3 @@
-list: GitHubPlugin/SaveAll GitHubPlugin GitHubPlugin/Setup GitHubPlugin/SyncAdaptor GitHubPlugin/SyncIndicator
+list: [[Draft of 'GitHubPlugin/SaveAll']] GitHubPlugin GitHubPlugin/Setup GitHubPlugin/SyncAdaptor GitHubPlugin/SyncIndicator
 title: $:/StoryList
 
