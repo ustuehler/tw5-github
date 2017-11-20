@@ -1,7 +1,8 @@
 created: 20171120005000616
 creator: ustuehler
-modified: 20171120005040557
+modified: 20171120005041681
 modifier: ustuehler
 title: GitHubPlugin/SyncIndicator
+type: text/vnd.tiddlywiki
 
 <<material-icon 'cloud'>>

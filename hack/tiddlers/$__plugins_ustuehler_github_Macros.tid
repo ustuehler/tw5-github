@@ -1,9 +1,10 @@
 created: 20171120005148979
 creator: ustuehler
-modified: 20171120005542981
+modified: 20171120005903259
 modifier: ustuehler
 tags: $:/tags/Macro
 title: $:/plugins/ustuehler/github/Macros
+type: text/vnd.tiddlywiki
 
 \define githubUserSignedIn()
 [[$:/status/GitHub]field:signed-in[true]]
@@ -11,9 +12,17 @@ title: $:/plugins/ustuehler/github/Macros
 \define githubUserSignedOut()
 [[$:/status/GitHub]field:signed-in[false]]
 \end
+\define githubSynchronising()
+[[$:/status/GitHub]field:synchronising[true]]
+\end
+\define githubNotSynchronising()
+[[$:/status/GitHub]field:synchronising[false]]
+\end
 
 ! Examples
 
+; githubUserSignedIn
+
 ```
 <$list variable="" filter=<<githubUserSignedIn>>>
 
@@ -28,6 +37,8 @@ title: $:/plugins/ustuehler/github/Macros
 
 </$list>
 
+; githubUserSignedOut
+
 ```
 <$list variable="" filter=<<githubUserSignedOut>>>
 
@@ -39,5 +50,21 @@ title: $:/plugins/ustuehler/github/Macros
 <$list variable="" filter=<<githubUserSignedOut>>>
 
 ~GitHub User is signed out.
+
+</$list>
+
+; githubSynchronising
+
+```
+<$list variable="" filter=<<githubSynchronising>>>
+
+~GitHubAdaptor is synchronising.
+
+</$list>
+```
+
+<$list variable="" filter=<<githubNotSynchronising>>>
+
+~GitHubAdaptor is not synchronising.
 
 </$list>

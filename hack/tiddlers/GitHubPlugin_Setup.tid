@@ -1,15 +1,8 @@
 created: 20171114035226893
-modified: 20171114035633942
+modified: 20171120005328654
 tags: 
 title: GitHubPlugin/Setup
 type: text/vnd.tiddlywiki
-
-\define signedIn()
-[[$:/status/GitHub]field:signed-in[true]]
-\end
-\define signedOut()
-[[$:/status/GitHub]field:signed-in[false]]
-\end
 
 ''Step 1: Obtain a personal access token''
 
@@ -19,7 +12,7 @@ type: text/vnd.tiddlywiki
 
 {{GitHubPlugin/SignIn}}
 
-<$list variable="" filter=<<signedIn>>>
+<$list variable="" filter=<<githubUserSignedIn>>>
 
 ''Step 3: Verify that you can write files (optional)''
 

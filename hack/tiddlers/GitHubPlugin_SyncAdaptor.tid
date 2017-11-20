@@ -1,18 +1,10 @@
 created: 20171113225756037
 creator: ustuehler
-modified: 20171119140613256
+modified: 20171120005926745
 modifier: ustuehler
 tags: 
 title: GitHubPlugin/SyncAdaptor
 type: text/vnd.tiddlywiki
-
-\define synchronising()
-[[$:/status/GitHub]field:synchronising[true]]
-\end
-
-\define notSynchronising()
-[[$:/status/GitHub]field:synchronising[false]]
-\end
 
 The [[githubadaptor|GitHubPlugin/Development/SyncAdaptor]] synchronises changed tiddlers with a repository on ~GitHub. but before it can do so, you must specify a repository location where the tiddlers should be stored.
 
@@ -22,7 +14,7 @@ The [[githubadaptor|GitHubPlugin/Development/SyncAdaptor]] synchronises changed 
 
 ''Step 2: Start synchronising tiddlers in the background''
 
-<$list variable="" filter=<<synchronising>>>
+<$list variable="" filter=<<githubSynchronising>>>
 
 <span style="color: green;">Background synchronisation is currently enabled.</span>
 
@@ -42,7 +34,7 @@ Stop
 
 </$list>
 
-<$list variable="" filter=<<notSynchronising>>>
+<$list variable="" filter=<<githubNotSynchronising>>>
 
 <$button class="mdc-button mdc-button--raised">
 <$action-sendmessage $message="tm-github-start-sync"/>
