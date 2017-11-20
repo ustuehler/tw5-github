@@ -7,13 +7,13 @@ GitHub API client that can configure itself from tiddlers
 
 \*/
 (function () {
-  /* global $tw */
+  /* global $tw, Promise */
 
   var getWindowProperty = require('$:/plugins/ustuehler/core/utils').getWindowProperty
   var Tiddlers = require('$:/plugins/ustuehler/core').Tiddlers
 
-  const CONFIG_USER_NAME = 'UserName'
-  const CONFIG_ACCESS_TOKEN = 'AccessToken'
+  var CONFIG_USER_NAME = 'UserName'
+  var CONFIG_ACCESS_TOKEN = 'AccessToken'
 
   var Client = function (username, accessToken) {
     if (arguments.length < 2) {
@@ -97,7 +97,7 @@ GitHub API client that can configure itself from tiddlers
       return new Promise(function (resolve, reject) {
         var u = github.getUser(username)
 
-        u._request('GET', u.__getScopedUrl('keys'), null, function (err, data, response) {
+        u._request('GET', u.__getScopedUrl('keys'), null, function (err, data/*, response*/) {
           if (err) {
             reject(err)
           } else {
@@ -113,9 +113,9 @@ GitHub API client that can configure itself from tiddlers
    * file exists, to null if the file was not found, and rejects the promise
    * with an error under all other conditions
    */
-  Client.prototype.getFileContent = function (repo, ref, path) {
+  Client.prototype.getFileContent = function (user, repo, ref, path) {
     return this.initialise().then(function (github) {
-      return github.getRepo(repo).getContents(ref, path)
+      return github.getRepo(user, repo).getContents(ref, path)
         .then(function (response) {
           if ($tw.utils.isArray(response.data)) {
             // The path points to a directory, not a file
@@ -150,6 +150,7 @@ GitHub API client that can configure itself from tiddlers
     var committer = {}
 
     message = message || 'Update ' + path
+    options = options || {}
 
     if (options.committer) {
       Object.assign(committer, options.committer)
@@ -160,7 +161,7 @@ GitHub API client that can configure itself from tiddlers
     }
 
     if (!committer.email) {
-      committer.email = 'no-reply@github.com'
+      committer.email = 'tiddlywiki'
     }
 
     return this.initialise().then(function (github) {

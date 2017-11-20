@@ -7,9 +7,9 @@ A sync adaptor module for synchronising with GitHub
 
 \*/
 (function () {
-  /* global $tw */
+  /* global $tw, Promise */
 
-  const SKINNY_TIDDLERS_FILE = 'tiddlers.json'
+  var SKINNY_TIDDLERS_FILE = 'tiddlers.json'
 
   var Client = require('$:/plugins/ustuehler/github/client').Client
   var SyncAdaptor = require('$:/plugins/ustuehler/core').SyncAdaptor
@@ -67,8 +67,6 @@ A sync adaptor module for synchronising with GitHub
    * may be null
    */
   GitHubAdaptor.prototype.getClientStatus = function () {
-    var self = this
-
     // Attempt to sign in and start the synchronisation automatically
     return this.start()
       .then(function (client) {
@@ -96,7 +94,7 @@ A sync adaptor module for synchronising with GitHub
     var self = this
 
     return client.initialise()
-      .then(function (github) {
+      .then(function () {
         // TODO: anything to do to start the synchronisation?
 
         self.client = client
@@ -133,34 +131,71 @@ A sync adaptor module for synchronising with GitHub
    * limited amount of content from files in a GitHub repository.
    */
   GitHubAdaptor.prototype.getSkinnyTiddlersFromStore = function () {
+    var self = this
+    var user = this.config.user
     var repo = this.config.repo
-    var ref = 'heads/' + this.config.branch
+    var branch = this.config.branch
+    var ref = 'heads/' + branch
     var path = this.config.path + '/' + SKINNY_TIDDLERS_FILE
 
     // Attempt to sign in and start the synchronisation, automatically
     return this.start().then(function (client) {
       // Fetch the skinny tiddlers file
-      return client.getFileContent(repo, ref, path)
-    }).then(function (content) {
-      // Assume empty array if the skinny tiddlers file doesn't exist
-      content = content || '[]'
+      return client.getFileContent(user, repo, ref, path)
+        .then(function (content) {
+          // Assume empty array if the skinny tiddlers file doesn't exist
+          return content || self.computeSkinnyTiddlersContent()
+            // This branch executes only if we had to compute the skinny tiddlers
+            .then(function (content) {
+              // Attempt to store the skinny tiddlers for later, but discard errors
+              return client.writeFile(user, repo, branch, path, content)
+                .catch(function (err) {
+                  console.log('Error saving skinny tiddlers:', err)
+                })
+                .then(function () {
+                  // Return the computed content anyway
+                  return content
+                })
+            })
+        })
+        .then(function (content) {
+          // Parse the retrieved skinny tiddlers file content
+          var tiddlers = JSON.parse(content)
 
-      // Parse the retrieved skinny tiddlers file content
-      var tiddlers = JSON.parse(content)
-      if (!$tw.utils.isArray(tiddlers)) {
-        throw new Error('The skinny tiddlers file should contain an array of tiddler fields: ' + path)
-      }
+          if (!$tw.utils.isArray(tiddlers)) {
+            throw new Error('The skinny tiddlers file should contain an array of tiddler fields: ' + path)
+          }
 
-      // The skinny tiddlers
-      return tiddlers
+          // The skinny tiddlers
+          return tiddlers
+        })
     })
+  }
+
+  /*
+   * computeSkinnyTiddlersContent walks the directory tree recursively,
+   * starting at the configured repository location, to compute the expected
+   * content of the tiddlers.json file
+   */
+  GitHubAdaptor.prototype.computeSkinnyTiddlersContent = function () {
+    return this.computeSkinnyTiddlers().then(function (tiddlers) {
+      return JSON.stringify(tiddlers, null, '  ')
+    })
+  }
+
+  GitHubAdaptor.prototype.computeSkinnyTiddlers = function () {
+    var tiddlers = []
+
+    console.log('TODO: compute skinny tiddlers')
+
+    return Promise.resolve(tiddlers)
   }
 
   /*
    * getTiddlerInfoFromStore returns internal metadata about the tiddler, i.e.,
    * its location reference on GitHub
    */
-  GitHubAdaptor.prototype.getTiddlerInfoFromStore = function (tiddler) {
+  GitHubAdaptor.prototype.getTiddlerInfoFromStore = function (/*tiddler*/) {
     return {
       // TODO: separate information about user, branch, repo, path
     }
@@ -191,7 +226,7 @@ A sync adaptor module for synchronising with GitHub
    * deleteTiddlerFromStore deletes the tiddler with the given title from the
    * configured GitHub repository location
    */
-  GitHubAdaptor.prototype.deleteTiddlerFromStore = function (title, adapterInfo) {
+  GitHubAdaptor.prototype.deleteTiddlerFromStore = function (title/*, adapterInfo*/) {
     var user = this.config.user
     var repo = this.config.repo
     var branch = this.config.branch
@@ -224,23 +259,6 @@ A sync adaptor module for synchronising with GitHub
   function startedStatus () {
     return {
       synchronising: true
-    }
-  }
-
-  const ICON_UPLOADING = 'cloud_upload'
-  const ICON_UPLOADED = 'cloud_done'
-
-  function uploadingStatus () {
-    return {
-      writing: true,
-      icon: ICON_UPLOADING
-    }
-  }
-
-  function uploadedStatus () {
-    return {
-      writing: false,
-      icon: ICON_UPLOADED
     }
   }
 
