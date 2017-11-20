@@ -1,0 +1,58 @@
+draft.of: $:/github/SyncAdaptor
+draft.title: $:/github/SyncAdaptor
+modified: 20171120053203359
+modifier: ustuehler
+title: Draft of '$:/github/SyncAdaptor'
+
+The [[githubadaptor|$:/plugins/ustuehler/github/githubadaptor.js]] synchronises changed tiddlers with a repository on ~GitHub. but before it can do so, you must specify a repository location where the tiddlers should be stored.
+
+''Step 1: Specify the repository location for tiddlers''
+
+<$list variable="" filter=<<githubNotSynchronising>>>
+
+{{$:/github/SyncSettings}}
+
+</$list>
+
+''Step 2: Start synchronising tiddlers in the background''
+
+<$list variable="" filter=<<githubSynchronising>>>
+
+<span style="color: green;">Background synchronisation is currently enabled.</span>
+
+<$button class="mdc-button mdc-button--raised">
+<$action-sendmessage $message="tm-github-stop-sync"/>
+Stop
+</$button>
+<$macrocall $name="github-blob-button"
+  user={{$:/config/GitHub/User}}
+  repo={{$:/config/GitHub/Repo}}
+  branch={{$:/config/GitHub/Branch}}
+  file={{$:/config/GitHub/Path}}
+  label="View Tiddlers on ~GitHub"
+  class="mdc-button"
+  style="color: inherit"/>
+{{$:/status/GitHub!!error}}
+
+</$list>
+
+<$list variable="" filter=<<githubNotSynchronising>>>
+
+<$button class="mdc-button mdc-button--raised">
+<$action-sendmessage $message="tm-github-start-sync"/>
+Start
+</$button>
+<$macrocall $name="github-blob-button"
+  user={{$:/config/GitHub/User}}
+  repo={{$:/config/GitHub/Repo}}
+  branch={{$:/config/GitHub/Branch}}
+  file={{$:/config/GitHub/Path}}
+  label="View Tiddlers on ~GitHub"
+  class="mdc-button"
+  style="color: inherit"/>
+{{$:/status/GitHub!!error}}
+
+</$list>
+
+[[Prev|$:/github/Setup]] |
+[[Up|$:/plugins/ustuehler/github]]
