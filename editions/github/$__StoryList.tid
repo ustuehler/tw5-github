@@ -1,0 +1,3 @@
+list: $:/github/Setup $:/github/SyncAdaptor GitHubPlugin
+title: $:/StoryList
+
