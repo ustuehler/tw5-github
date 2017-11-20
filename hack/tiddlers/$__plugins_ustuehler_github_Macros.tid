@@ -1,0 +1,29 @@
+created: 20171120005148979
+creator: ustuehler
+modified: 20171120005500266
+modifier: ustuehler
+tags: $:/tags/Macro
+title: $:/plugins/ustuehler/github/Macros
+
+\define githubUserSignedIn()
+[[$:/status/GitHub]field:signed-in[true]]
+\end
+\define githubUserSignedOut()
+[[$:/status/GitHub]field:signed-in[false]]
+\end
+
+! Examples
+
+```
+<$list variable="" filter=<<githubUserSignedIn>>>
+
+~GitHub User is signed in.
+
+</$list>
+```
+
+<$list variable="" filter=<<githubUserSignedIn>>>
+
+~GitHub User is signed in.
+
+</$list>
