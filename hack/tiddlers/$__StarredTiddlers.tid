@@ -1,6 +1,8 @@
 created: 20171120000626880
-list: GitHubPlugin GitHubPlugin/Setup
-modified: 20171120000627926
+creator: ustuehler
+list: GitHubPlugin GitHubPlugin/Setup GitHubPlugin/SyncAdaptor
+modified: 20171120001751784
+modifier: ustuehler
 title: $:/StarredTiddlers
 type: text/vnd.tiddlywiki
 

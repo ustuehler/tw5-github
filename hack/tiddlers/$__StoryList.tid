@@ -1,3 +1,6 @@
-list: GitHubPlugin GitHubPlugin/Setup
+created: 20171120003435444
+list: GitHubPlugin GitHubPlugin/Setup GitHubPlugin/SyncAdaptor
+modified: 20171120003435444
 title: $:/StoryList
+type: text/vnd.tiddlywiki
 
