@@ -4,6 +4,11 @@ The [[githubadaptor|$:/plugins/ustuehler/github/githubadaptor.js]] synchronises 
 
 ''Step 1: Specify the repository location for tiddlers''
 
+<$list variable="" filter=<<githubSynchronising>>>
+
+Stop the running synchronisation before changing the repository location.
+
+</$list>
 <$list variable="" filter=<<githubNotSynchronising>>>
 
 {{$:/github/SyncSettings}}
