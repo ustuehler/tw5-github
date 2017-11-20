@@ -12,7 +12,11 @@ The [[githubadaptor|$:/plugins/ustuehler/github/githubadaptor.js]] synchronises 
 
 </$list>
 
-''Step 2: Start synchronising tiddlers in the background''
+''Step 2: Adjust the filter expression if needed''
+
+{{$:/github/SyncFilter}}
+
+''Step 3: Start synchronising tiddlers in the background''
 
 <$list variable="" filter=<<githubSynchronising>>>
 
