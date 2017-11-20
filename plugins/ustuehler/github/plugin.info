@@ -4,5 +4,5 @@
 	"core-version": ">=5.1.14",
 	"author": "Uwe Stuehler",
 	"description": "GitHub API client and tiddler store",
-	"list": "readme usage license"
+	"list": "readme license"
 }

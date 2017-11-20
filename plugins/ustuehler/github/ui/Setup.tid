@@ -7,6 +7,11 @@ title: $:/github/Setup
 {{$:/github/AccessToken}}
 
 </$list>
+<$list variable="" filter=<<githubUserSignedIn>>>
+
+<span style="color: green;">The access token is valid and currently in use.</span>
+
+</$list>
 
 ''Step 2: Sign in with this access token''
 

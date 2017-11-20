@@ -1,5 +1,5 @@
 title: $:/github/SignedIn
 
-<span style="color: green;">You have successfully signed in as {{$:/status/GitHub/UserName}}.</span>
+<span style="color: green;">You are signed in as {{$:/status/GitHub/UserName}}.</span>
 
 {{$:/plugins/ustuehler/github/Buttons/sign-out}}
