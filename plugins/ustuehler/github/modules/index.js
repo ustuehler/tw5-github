@@ -7,7 +7,7 @@ The plugin's main logic
 
 \*/
 (function () {
-  /* global $tw */
+  /* global $tw, Promise */
 
   var Component = require('$:/plugins/ustuehler/core').Component
   var Syncer = require('$:/plugins/ustuehler/core').Syncer
@@ -100,24 +100,26 @@ The plugin's main logic
   GitHub.prototype.startSync = function () {
     var self = this
 
-    return this.signIn().then(function (user) {
-      return self.syncadaptor.start().then(function () {
+    return this.stopSync()
+      .then(function () {
+        return self.signIn()
+      })
+      .then(function (/*user*/) {
+        return self.syncadaptor.start()
+      })
+      .then(function () {
         self.status.setError(null)
         self.status.update(synchronisingStatus())
-      }).catch(function (err) {
+      })
+      .catch(function (err) {
         self.status.setError(err)
         self.status.update(notSynchronisingStatus())
-        return err
+        throw err
       })
-    })
   }
 
   GitHub.prototype.stopSync = function () {
     var self = this
-
-    if (!this.status.fields.synchronising) {
-      return Promise.resolve()
-    }
 
     this.status.update(notSynchronisingStatus())
 
@@ -148,8 +150,8 @@ The plugin's main logic
     })
   }
 
-  const STATUS_USER_NAME = '$:/status/GitHub/UserName'
-  const TEMP_ACCESS_TOKEN = '$:/temp/GitHub/AccessToken'
+  var STATUS_USER_NAME = '$:/status/GitHub/UserName'
+  var TEMP_ACCESS_TOKEN = '$:/temp/GitHub/AccessToken'
 
   function getUserName () {
     return $tw.wiki.getTiddlerText(STATUS_USER_NAME)
