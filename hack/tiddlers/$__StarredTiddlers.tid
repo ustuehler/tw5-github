@@ -1,7 +1,7 @@
 created: 20171120000626880
 creator: ustuehler
-list: GitHubPlugin GitHubPlugin/Setup GitHubPlugin/SyncAdaptor GitHubPlugin/SyncIndicator $:/AdvancedSearch
-modified: 20171120033459056
+list: GitHubPlugin $:/AdvancedSearch
+modified: 20171120040804156
 modifier: ustuehler
 title: $:/StarredTiddlers
 type: text/vnd.tiddlywiki
