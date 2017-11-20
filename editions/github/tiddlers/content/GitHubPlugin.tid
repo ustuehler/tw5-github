@@ -30,6 +30,6 @@ The aim for this plugin is to provide a SyncAdaptor that can run in the browser 
 
 ! Usage
 
-The plugin should configure itself automatically when used with <a target="_blank" href={{GitHubPages!!url}}>~GitHub Pages</a>. If you need to, you can [[tweak the settings|$:/plugins/ustuehler/github/Setup]].
+The plugin should configure itself automatically when used with <a target="_blank" href={{GitHubPages!!url}}>~GitHub Pages</a>. If you need to, you can [[tweak the settings|$:/github/Setup]].
 
-[[Next|$:/plugins/ustuehler/github/Setup]]
+[[Next|$:/github/Setup]]
