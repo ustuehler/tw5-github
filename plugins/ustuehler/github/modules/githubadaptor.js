@@ -227,6 +227,23 @@ A sync adaptor module for synchronising with GitHub
     }
   }
 
+  const ICON_UPLOADING = 'cloud_upload'
+  const ICON_UPLOADED = 'cloud_done'
+
+  function uploadingStatus () {
+    return {
+      writing: true,
+      icon: ICON_UPLOADING
+    }
+  }
+
+  function uploadedStatus () {
+    return {
+      writing: false,
+      icon: ICON_UPLOADED
+    }
+  }
+
   if ($tw.browser) {
     /* TODO: enable when ready
     exports.adaptorClass = GitHubAdaptor

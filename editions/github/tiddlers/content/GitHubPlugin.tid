@@ -30,6 +30,6 @@ The aim for this plugin is to provide a SyncAdaptor that can run in the browser 
 
 ! Usage
 
-You must be [[signed in|$:/github/Setup]] to synchronise changes with ~GitHub. Beyond that, this plugin should configure itself automatically when used with <a target="_blank" href={{GitHubPages!!url}}>~GitHub Pages</a>. If you need to, you can [[tweak the settings|$:/github/SyncAdaptor]].
+You must be [[signed in|$:/github/Setup]] to synchronise changes with ~GitHub. Beyond that, this plugin should configure itself automatically when used with <a target="_blank" href={{GitHubPages!!url}}>~GitHub Pages</a>, but you can [[tweak the settings|$:/github/SyncAdaptor]] if you need to.
 
 [[Next|$:/github/Setup]]

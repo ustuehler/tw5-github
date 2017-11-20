@@ -14,7 +14,7 @@
   "scripts": {
     "build": "node index.js editions/github --build && node index.js editions/hack --build",
     "test": "node index.js editions/test --build 2>&1 | tee test.out; ! grep -q ^Failures: test.out",
-    "hack": "nodemon index.js editions/hack --server 8081"
+    "hack": "nodemon index.js editions/hack --server 8080"
   },
   "repository": {
     "type": "git",
@@ -31,5 +31,15 @@
   "bugs": {
     "url": "https://github.com/ustuehler/tw5-github/issues"
   },
-  "homepage": "https://github.com/ustuehler/tw5-github#readme"
+  "homepage": "https://github.com/ustuehler/tw5-github#readme",
+  "nodemonConfig": {
+    "verbose": true,
+    "ext": "js,tid,info,multids,json",
+    "ignore": [
+      "node_modules/*",
+      "editions/*",
+      "hack/*"
+    ],
+    "delay": "1000"
+  }
 }

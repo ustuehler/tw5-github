@@ -17,5 +17,5 @@ title: $:/github/Setup
 
 {{$:/github/SignInOrOut}}
 
-[[Up|$:/github/SignInOrOut]] |
+[[Up|$:/plugins/ustuehler/github]] |
 [[Next|$:/github/SyncAdaptor]]
