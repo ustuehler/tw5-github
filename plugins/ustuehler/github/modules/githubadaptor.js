@@ -73,13 +73,13 @@ A sync adaptor module for synchronising with GitHub
     return this.start()
       .then(function (client) {
         // The user is signed in
-        return Promise.resolve([true, self.client.username])
+        return Promise.resolve([true, client.username])
       })
       .catch(function (err) {
         console.log(err)
 
         // Not signed in, whatever the error was
-        return Promise.resolve([false, self.client.username])
+        return Promise.resolve([false, null])
       })
   }
 
@@ -106,7 +106,7 @@ A sync adaptor module for synchronising with GitHub
       })
       .catch(function (err) {
         self.status.update(stoppedStatus())
-        return err
+        throw err
       })
   }
 
@@ -244,12 +244,9 @@ A sync adaptor module for synchronising with GitHub
     }
   }
 
-  if ($tw.browser) {
-    /* TODO: enable when ready
-    exports.adaptorClass = GitHubAdaptor
-    */
-  }
-
-  // XXX: hope this won't hurt anybody, because the docs say we must not export anything else
   exports.GitHubAdaptor = GitHubAdaptor
+
+  if ($tw.browser) {
+    exports.adaptorClass = GitHubAdaptor
+  }
 })()

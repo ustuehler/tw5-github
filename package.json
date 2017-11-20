@@ -4,7 +4,7 @@
   "description": "TiddlyWiki GitHub Edition",
   "main": "index.js",
   "dependencies": {
-    "tiddlywiki": "^5.1.15",
+    "tiddlywiki": "5.1.x",
     "tw5-material": "git+https://github.com/ustuehler/tw5-material.git",
     "tw5-plugin": "git+https://github.com/ustuehler/tw5-plugin.git"
   },
