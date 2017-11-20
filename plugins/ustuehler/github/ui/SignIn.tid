@@ -1,0 +1,9 @@
+title: $:/plugins/ustuehler/github/SignIn
+
+|<$link to="$:/temp/GitHub/AccessToken">Personal access token:</$link> |<$edit-text tiddler="$:/temp/GitHub/AccessToken" default="" tag="input" type="password"/> |
+
+{{$:/plugins/ustuehler/github/Buttons/sign-in}}
+
+<$list variable="error" filter="[{$:/status/GitHub!!error}] -null">
+<<error>>
+</$list>

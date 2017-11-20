@@ -1,0 +1,9 @@
+created: 20171113020641553
+modified: 20171113223123991
+tags: 
+title: $:/plugins/ustuehler/github/SignedIn
+type: text/vnd.tiddlywiki
+
+<span style="color: green;">You have successfully signed in as {{$:/status/GitHub/UserName}}.</span>
+
+{{$:/plugins/ustuehler/github/Buttons/sign-out}}

@@ -1,5 +1,5 @@
 created: 20171112232838681
-modified: 20171114035518928
+modified: 20171120000755419
 title: GitHubPlugin/SignIn
 type: text/vnd.tiddlywiki
 
@@ -12,12 +12,12 @@ type: text/vnd.tiddlywiki
 
 <$list variable="" filter=<<signedIn>>>
 
-{{$:/plugins/ustuehler/github/ui/SignedIn}}
+{{$:/plugins/ustuehler/github/SignedIn}}
 
 </$list>
 
 <$list variable="" filter=<<signedOut>>>
 
-{{$:/plugins/ustuehler/github/ui/SignIn}}
+{{$:/plugins/ustuehler/github/SignIn}}
 
 </$list>

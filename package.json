@@ -8,10 +8,13 @@
     "tw5-material": "git+https://github.com/ustuehler/tw5-material.git",
     "tw5-plugin": "git+https://github.com/ustuehler/tw5-plugin.git"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  },
   "scripts": {
     "build": "node index.js editions/github --build && node index.js editions/hack --build",
-    "test": "node index.js editions/test --build 2>&1 | tee test.out; ! grep -q ^Failures: test.out"
+    "test": "node index.js editions/test --build 2>&1 | tee test.out; ! grep -q ^Failures: test.out",
+    "hack": "nodemon index.js editions/hack --server 8081"
   },
   "repository": {
     "type": "git",

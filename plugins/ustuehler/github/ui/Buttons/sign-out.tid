@@ -1,8 +1,4 @@
-created: 20171112055410624
-modified: 20171113222651493
-tags: 
-title: $:/plugins/ustuehler/github/ui/Buttons/sign-out
-type: text/vnd.tiddlywiki
+title: $:/plugins/ustuehler/github/Buttons/sign-out
 
 <$button class="mdc-button mdc-button--raised">
 <$action-sendmessage $message="tm-github-sign-out"/>

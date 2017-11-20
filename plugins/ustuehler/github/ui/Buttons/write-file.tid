@@ -1,11 +1,7 @@
+title: $:/plugins/ustuehler/github/Buttons/write-file
 caption: <<material-icon "cloud_upload">> {{$:/language/Buttons/GitHubWriteFile/Caption}}
-created: 20171104130219319
 description: {{$:/language/Buttons/GitHubWriteFile/Hint}}
-list-after: $:/themes/ustuehler/material/ui/Buttons/clone
-modified: 20171112000323984
-span: 6
-title: $:/plugins/ustuehler/github/ui/Buttons/write-file
-type: text/vnd.tiddlywiki
+list-after: $:/themes/ustuehler/material/Buttons/clone
 
 <$button tooltip={{$:/language/Buttons/GitHubWriteFile/Hint}} aria-label={{$:/language/Buttons/GitHubWriteFile/Caption}} class=<<tv-config-toolbar-class>>>
 <$github>
