@@ -1,10 +1,4 @@
-created: 20171114035036083
-creator: s
-modified: 20171114073535922
-modifier: s
-tags: 
-title: GitHubPlugin/SyncSettings
-type: text/vnd.tiddlywiki
+title: $:/github/SyncSettings
 
 |Organisation or username |<$edit-text tiddler="$:/config/GitHub/User" tag="input" default=""/> |
 |Repository |<$edit-text tiddler="$:/config/GitHub/Repo" tag="input" default=""/> |
