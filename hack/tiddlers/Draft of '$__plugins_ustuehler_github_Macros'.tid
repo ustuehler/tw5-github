@@ -2,7 +2,7 @@ created: 20171120005148979
 creator: ustuehler
 draft.of: $:/plugins/ustuehler/github/Macros
 draft.title: $:/plugins/ustuehler/github/Macros
-modified: 20171120005520360
+modified: 20171120005526704
 modifier: ustuehler
 tags: $:/tags/Macro
 title: Draft of '$:/plugins/ustuehler/github/Macros'
@@ -16,6 +16,19 @@ title: Draft of '$:/plugins/ustuehler/github/Macros'
 
 ! Examples
 
+```
+<$list variable="" filter=<<githubUserSignedIn>>>
+
+~GitHub User is signed in.
+
+</$list>
+```
+
+<$list variable="" filter=<<githubUserSignedIn>>>
+
+~GitHub User is signed in.
+
+</$list>
 ```
 <$list variable="" filter=<<githubUserSignedIn>>>
 
