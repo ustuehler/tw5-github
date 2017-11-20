@@ -6,13 +6,4 @@ tags: $:/tags/PageTemplate/ToolbarRight
 title: GitHubPlugin/SyncIndicator
 type: text/vnd.tiddlywiki
 
-<$list variable="" filter=<<githubSynchronising>>>
-
-<<material-icon 'cloud_upload'>>
-
-</$list>
-<$list variable="" filter=<<githubNotSynchronising>>>
-
-<<material-icon 'cloud'>>
-
-</$list>
+<$list variable="" filter=<<githubSynchronising>>><<material-icon 'cloud_upload'>></$list><$list variable="" filter=<<githubNotSynchronising>>><<material-icon 'cloud'>></$list>
