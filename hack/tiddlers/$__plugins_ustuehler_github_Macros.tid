@@ -1,6 +1,6 @@
 created: 20171120005148979
 creator: ustuehler
-modified: 20171120005500266
+modified: 20171120005542981
 modifier: ustuehler
 tags: $:/tags/Macro
 title: $:/plugins/ustuehler/github/Macros
@@ -25,5 +25,19 @@ title: $:/plugins/ustuehler/github/Macros
 <$list variable="" filter=<<githubUserSignedIn>>>
 
 ~GitHub User is signed in.
+
+</$list>
+
+```
+<$list variable="" filter=<<githubUserSignedOut>>>
+
+~GitHub User is signed out.
+
+</$list>
+```
+
+<$list variable="" filter=<<githubUserSignedOut>>>
+
+~GitHub User is signed out.
 
 </$list>
