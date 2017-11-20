@@ -1,0 +1,41 @@
+caption: GitHub Plugin
+created: 20171108090424876
+creator: ustuehler
+draft.of: GitHubPlugin
+draft.title: GitHubPlugin
+modified: 20171120005044160
+modifier: ustuehler
+revision: 16
+tags: TiddlyWikiPlugins
+title: Draft of 'GitHubPlugin'
+type: text/vnd.tiddlywiki
+
+\define pluginGroup() ustuehler
+\define pluginName() firebase
+\define pluginTitle() $:/plugins/$(pluginGroup)$/$(pluginName)$
+\define pluginTiddler(title) $(pluginTitle)$/$title$
+
+<table>
+  <tr>
+    <th>Plugin Tiddler</th>
+    <td>$:/plugins/ustuehler/github</td>
+  </tr>
+  <tr>
+    <th>Dependencies</th>
+    <td>$:/plugins/ustuehler/core</td>
+  </tr>
+  <tr>
+    <th>Documentation</th>
+    <td>[[GitHubPlugin/Documentation]]</td>
+  </tr>
+</table>
+
+! Purpose
+
+The aim for this plugin is to provide a SyncAdaptor that can run in the browser as well as on the server side to synchronise tiddlers with a repository hosted on GitHub.
+
+! Usage
+
+The plugin should configure itself automatically when used with GitHubPages. If you need to tweak the settings, follow the [[Setup Guide|GitHubPlugin/Setup]].
+
+[[Next|GitHubPlugin/Setup]]
