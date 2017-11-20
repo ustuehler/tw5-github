@@ -1,0 +1,13 @@
+title: $:/plugins/ustuehler/github/AccessToken
+
+<a
+  target="_"
+  href="https://github.com/settings/tokens/new"
+  class="mdc-button mdc-button--raised"
+  style="color: white;"
+>Generate New Token</a>
+<a
+  target="_"
+  href="https://github.com/settings/tokens"
+  class="mdc-button"
+>View Existing Tokens</a>
