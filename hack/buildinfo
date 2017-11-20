@@ -79,10 +79,4 @@ for pluginPath in plugins/*/* themes/*/*; do
 done
 
 cp package.json $EDITION_PATH/tiddlers/files/package
-
-# npm 3.10.10 stopped updating package-lock.json
-if [ -f package-lock.json ]; then
-  cp package-lock.json $EDITION_PATH/tiddlers/files/package-lock
-else
-  cp package.json $EDITION_PATH/tiddlers/files/package-lock
-fi
+cp package-lock.json $EDITION_PATH/tiddlers/files/package-lock

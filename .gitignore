@@ -17,7 +17,7 @@
 /test.out
 
 # Draft tiddlers
-Draft of *.tid
+Draft of *
 
 # $:/StoryList
 $__StoryList.tid
