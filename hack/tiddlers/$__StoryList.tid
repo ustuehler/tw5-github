@@ -1,3 +1,3 @@
-list: GitHubPlugin GitHubPlugin/Setup GitHubPlugin/SyncAdaptor GitHubPlugin/SyncIndicator
+list: GitHubPlugin GitHubPlugin/Setup [[Draft of '$:/plugins/ustuehler/github/Macros']] [[Draft of 'GitHubPlugin/SyncAdaptor']]
 title: $:/StoryList
 
