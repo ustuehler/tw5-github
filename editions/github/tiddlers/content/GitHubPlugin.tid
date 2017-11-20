@@ -1,20 +1,15 @@
-caption: GitHub Plugin
-created: 20171108090424876
-creator: ustuehler
-modified: 20171120003332895
-modifier: ustuehler
-tags: TiddlyWikiPlugins
 title: GitHubPlugin
-type: text/vnd.tiddlywiki
+caption: GitHub Plugin
+tags: TiddlyWikiPlugins
 
 \define pluginGroup() ustuehler
-\define pluginName() firebase
+\define pluginName() github
 \define pluginTitle() $:/plugins/$(pluginGroup)$/$(pluginName)$
 \define pluginTiddler(title) $(pluginTitle)$/$title$
 
 <table>
   <tr>
-    <th>Plugin Tiddler</th>
+    <th>Plugin</th>
     <td>$:/plugins/ustuehler/github</td>
   </tr>
   <tr>

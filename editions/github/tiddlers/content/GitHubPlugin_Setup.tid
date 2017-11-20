@@ -14,10 +14,6 @@ type: text/vnd.tiddlywiki
 
 <$list variable="" filter=<<githubUserSignedIn>>>
 
-''Step 3: Verify that you can write files (optional)''
-
-You may wish to verify that you can [[write files|GitHubPlugin/Tests/WriteFile]] before continuing.
-
 </$list>
 
 [[Up|GitHubPlugin]] |
