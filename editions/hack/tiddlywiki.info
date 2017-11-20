@@ -3,7 +3,6 @@
   "plugins": [
     "tiddlywiki/github-fork-ribbon",
     "tiddlywiki/filesystem",
-    "tiddlywiki/tiddlyweb",
     "ustuehler/caption",
     "ustuehler/core",
     "ustuehler/github",
