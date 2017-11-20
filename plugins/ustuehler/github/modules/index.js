@@ -22,9 +22,15 @@ The plugin's main logic
       this.syncadaptor = $tw.syncadaptor
       this.syncer = $tw.syncer
     } else {
-      // Create a githubadaptor later in startSync
-      this.syncadaptor = null
-      this.syncer = null
+      this.syncadaptor = new GitHubAdaptor({
+        wiki: $tw.wiki
+      })
+
+      // Create a githubadaptor and syncer later in startSync
+      this.syncer = new Syncer({
+        wiki: $tw.wiki,
+        syncadaptor: this.syncadaptor
+      })
     }
 
     Component.call(this, 'GitHub').then(function () {
@@ -88,27 +94,14 @@ The plugin's main logic
     this.status.update(signedOutStatus())
     this.status.setError(null)
     // Now we have only anonymous access, again
-    return this.syncadaptor.stop()
+    return this.stopSync()
   }
 
   GitHub.prototype.startSync = function () {
     var self = this
 
     return this.signIn().then(function (user) {
-      if (!self.syncadaptor) {
-        self.syncadaptor = new GitHubAdaptor({
-          wiki: $tw.wiki
-        })
-      }
-
       return self.syncadaptor.start().then(function () {
-        if (!self.syncer) {
-          self.syncer = new Syncer({
-            wiki: $tw.wiki,
-            syncadaptor: self.syncadaptor
-          })
-        }
-
         self.status.setError(null)
         self.status.update(synchronisingStatus())
       }).catch(function (err) {
@@ -128,22 +121,10 @@ The plugin's main logic
 
     this.status.update(notSynchronisingStatus())
 
-    return this.syncer.stop()
+    return (this.syncer.stop ? this.syncer.stop() : Promise.resolve())
       .then(function () {
         return self.syncadaptor.stop()
       })
-      .then(function () {
-        self.syncer = null
-        self.syncadaptor = null
-      })
-  }
-
-  GitHub.prototype.setSyncAdaptor = function (syncadaptor) {
-    var self = this
-
-    return this.stopSync().then(function () {
-      self.syncadaptor = syncadaptor
-    })
   }
 
   GitHub.prototype.getUserProfile = function (username) {

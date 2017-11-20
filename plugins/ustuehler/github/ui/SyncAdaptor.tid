@@ -8,7 +8,7 @@ The [[githubadaptor|$:/plugins/ustuehler/github/githubadaptor.js]] synchronises 
 
 <$list variable="" filter=<<githubSynchronising>>>
 
-<span style="color: orange;">Restart the synchronisation for changes changes to take effect.</span>
+<span style="color: orange;">You must restart the synchronisation before changes will take effect.</span>
 
 </$list>
 
