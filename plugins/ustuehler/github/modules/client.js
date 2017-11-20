@@ -133,12 +133,11 @@ GitHub API client that can configure itself from tiddlers
         })
         .catch(function (err) {
           // File not found returns null as the file content
-          if (err.response.status === 404) {
+          if (err.response && err.response.status === 404) {
             return null
           }
-
-          // It's really an error
-          return err
+          // It's really an error, such as unauthorised access
+          throw err
         })
     })
   }
