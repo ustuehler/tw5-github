@@ -1,4 +1,4 @@
-title: $:/plugins/ustuehler/github/SyncAdaptor
+title: $:/github/SyncAdaptor
 
 The [[githubadaptor|$:/plugins/ustuehler/github/githubadaptor.js]] synchronises changed tiddlers with a repository on ~GitHub. but before it can do so, you must specify a repository location where the tiddlers should be stored.
 
@@ -6,7 +6,7 @@ The [[githubadaptor|$:/plugins/ustuehler/github/githubadaptor.js]] synchronises 
 
 <$list variable="" filter=<<githubNotSynchronising>>>
 
-{{$:/plugins/ustuehler/github/SyncSettings}}
+{{$:/github/SyncSettings}}
 
 </$list>
 
@@ -50,6 +50,5 @@ Start
 
 </$list>
 
-[[Prev|$:/plugins/ustuehler/github/Setup]] |
-[[Up|$:/plugins/ustuehler/github]] |
-[[Next|$:/plugins/ustuehler/github/SyncIndicator]]
+[[Prev|$:/github/Setup]] |
+[[Up|$:/plugins/ustuehler/github]]

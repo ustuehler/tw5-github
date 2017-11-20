@@ -1,10 +1,5 @@
-created: 20171120005148979
-creator: ustuehler
-modified: 20171120005903259
-modifier: ustuehler
-tags: $:/tags/Macro
 title: $:/plugins/ustuehler/github/Macros
-type: text/vnd.tiddlywiki
+tags: $:/tags/Macro
 
 \define githubUserSignedIn()
 [[$:/status/GitHub]field:signed-in[true]]

@@ -1,4 +1,4 @@
-title: $:/plugins/ustuehler/github/SignIn
+title: $:/github/SignIn
 
 |<$link to="$:/temp/GitHub/AccessToken">Personal access token:</$link> |<$edit-text tiddler="$:/temp/GitHub/AccessToken" default="" tag="input" type="password"/> |
 

@@ -1,17 +1,16 @@
-title: $:/plugins/ustuehler/github/Setup
-type: text/vnd.tiddlywiki
+title: $:/github/Setup
 
 ''Step 1: Obtain a personal access token''
 
 <$list variable="" filter=<<githubUserSignedOut>>>
 
-{{$:/plugins/ustuehler/github/AccessToken}}
+{{$:/github/AccessToken}}
 
 </$list>
 
 ''Step 2: Sign in with this access token''
 
-{{$:/plugins/ustuehler/github/SignInOrOut}}
+{{$:/github/SignInOrOut}}
 
-[[Up|$:/plugins/ustuehler/github]] |
-[[Next|$:/plugins/ustuehler/github/SyncAdaptor]]
+[[Up|$:/github/SignInOrOut]] |
+[[Next|$:/github/SyncAdaptor]]

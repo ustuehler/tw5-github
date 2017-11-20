@@ -1,9 +1,4 @@
-created: 20171120005000616
-creator: ustuehler
-modified: 20171120041526983
-modifier: ustuehler
-tags: $:/tags/PageTemplate/ToolbarRight
 title: $:/plugins/ustuehler/github/SyncIndicator
-type: text/vnd.tiddlywiki
+tags: $:/tags/PageTemplate/ToolbarRight
 
-<$list variable="" filter=<<githubSynchronising>>><$link to="$:/plugins/ustuehler/github/Setup" class="material-icons mdc-toolbar__icon" aria-label="Open GitHub sync settings" alt="Open GitHub sync settings">cloud_queue</$link></$list><$list variable="" filter=<<githubNotSynchronising>>><$link to="$:/plugins/ustuehler/github/Setup" class="material-icons mdc-toolbar__icon" aria-label="Open GitHub sync settings" alt="Open GitHub sync settings">cloud_off</$link></$list>
+<$list variable="" filter=<<githubSynchronising>>><$link to="$:/github/Setup" class="material-icons mdc-toolbar__icon" aria-label="Open GitHub sync settings" alt="Open GitHub sync settings">cloud_queue</$link></$list><$list variable="" filter=<<githubNotSynchronising>>><$link to="$:/github/Setup" class="material-icons mdc-toolbar__icon" aria-label="Open GitHub sync settings" alt="Open GitHub sync settings">cloud_off</$link></$list>
