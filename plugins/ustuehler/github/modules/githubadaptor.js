@@ -15,6 +15,7 @@ A sync adaptor module for synchronising tiddlers with GitHub
 
   var SKINNY_TIDDLER_FILE = '.json'
 
+  var FIELD_REVISION = 'revision' // core field
   var FIELD_GITHUB_PATH = 'x-github-path'
 
   /*
@@ -293,8 +294,18 @@ A sync adaptor module for synchronising tiddlers with GitHub
             return Promise.all(loadedTiddlers)
           })
           .then(function (tiddlersPerDir) {
+            var tiddlers = flatten(tiddlersPerDir)
+
+            $tw.utils.each(tiddlers, function (fields) {
+              if (!fields[FIELD_REVISION]) {
+                // TODO: use commit SHA
+                fields[FIELD_REVISION] = '1'
+              }
+              delete(fields['text'])
+            })
+
             self._computeSkinnyTiddlers = null
-            resolve(flatten(tiddlersPerDir))
+            resolve(tiddlers)
           })
           .catch(function (err) {
             console.debug('GitHubAdaptor.computeSkinnyTiddlers: err:', err)
