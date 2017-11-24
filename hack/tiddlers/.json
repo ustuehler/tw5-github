@@ -1,0 +1,173 @@
+[
+  {
+    "title": "$:/StarredTiddlers",
+    "created": "20171120000626880",
+    "creator": "ustuehler",
+    "list": "$:/github/Setup $:/status/GitHubAdaptor",
+    "modified": "20171120154035759",
+    "modifier": "ustuehler",
+    "type": "text/vnd.tiddlywiki",
+    "revision": "1"
+  },
+  {
+    "title": "$:/StoryList",
+    "list": "GitHubPlugin",
+    "revision": "1"
+  },
+  {
+    "title": "$:/config/GitHub/Path",
+    "created": "20171120003403527",
+    "modified": "20171120003900823",
+    "type": "text/vnd.tiddlywiki",
+    "revision": "1"
+  },
+  {
+    "title": "$:/config/GitHub/SyncFilter",
+    "type": "text/vnd.tiddlywiki",
+    "revision": "1"
+  },
+  {
+    "title": "GitHub",
+    "created": "20171120003044481",
+    "modified": "20171120003049526",
+    "type": "text/vnd.tiddlywiki",
+    "revision": "1"
+  },
+  {
+    "title": "GitHubPages",
+    "caption": "GitHub Pages",
+    "created": "20171120002931512",
+    "creator": "ustuehler",
+    "modified": "20171120041007559",
+    "modifier": "ustuehler",
+    "type": "text/vnd.tiddlywiki",
+    "url": "https://pages.github.com",
+    "revision": "1"
+  },
+  {
+    "title": "GitHubPlugin/Development/BrowserConsole",
+    "created": "20171111235149192",
+    "modified": "20171113224234138",
+    "span": "7",
+    "tags": "",
+    "type": "text/vnd.tiddlywiki",
+    "revision": "1"
+  },
+  {
+    "title": "GitHubPlugin/Development/SignInButton",
+    "created": "20171113220816832",
+    "modified": "20171113224416486",
+    "tags": "",
+    "type": "text/vnd.tiddlywiki",
+    "revision": "1"
+  },
+  {
+    "title": "GitHubPlugin/Development/Startup",
+    "created": "20171112214631744",
+    "modified": "20171113223931560",
+    "type": "text/vnd.tiddlywiki",
+    "revision": "1"
+  },
+  {
+    "title": "GitHubPlugin/Development/SyncAdaptor",
+    "created": "20171112001725155",
+    "modified": "20171114002504736",
+    "type": "text/vnd.tiddlywiki",
+    "revision": "1"
+  },
+  {
+    "title": "GitHubPlugin/Development/WriteFileButton",
+    "created": "20171111234832070",
+    "modified": "20171114034744499",
+    "span": "12",
+    "type": "text/vnd.tiddlywiki",
+    "revision": "1"
+  },
+  {
+    "title": "GitHubPlugin/ListRepositories",
+    "created": "20171112053350353",
+    "list": "tw5-elite ustuehler.github.io tw5-material lxc-desktop keep-a-changelog git-cvs openbsd-ports openbsd-src monkey s2i-php-container docker-nethack bike tlsd TiddlyWiki5 puppet-fai docker firewall postfix-dovecot-cookbook todo-txt-gem kitchen-ec2 debian-package-builder-plugin openvpn-ssh-ca dep-selector-libgecode dymo-label docker-plugin rundeck-mcollective-nodes tests-ssh-hardening light limitless-led monkey-dashboard gnome-terminal-colors-solarized puppet-motd ruby_admin puppet-facter confluencer puppet-dashboard puppet-puppet pry-ops puppet-bacula puppet-cucumber puppet-ruby puppet-openssh puppet-debian puppet-openstack vim-ledger rspec-system pry puppetlabs-stdlib httpi facter mcollective-plugins marionette-collective jenkins",
+    "modified": "20171112054057193",
+    "span": "4",
+    "tags": "[[GitHub Pages]]",
+    "type": "text/vnd.tiddlywiki",
+    "revision": "1"
+  },
+  {
+    "title": "GitHubPlugin/OAuthLogin",
+    "created": "20171106085959009",
+    "modified": "20171112053038786",
+    "tags": "MissingFeatures",
+    "type": "text/vnd.tiddlywiki",
+    "revision": "1"
+  },
+  {
+    "title": "GitHubPlugin/ObtainingClientCredentials",
+    "created": "20171113195159552",
+    "modified": "20171113195436533",
+    "tags": "",
+    "type": "text/vnd.tiddlywiki",
+    "revision": "1"
+  },
+  {
+    "title": "GitHubPlugin/SaveAll",
+    "caption": "Save All",
+    "created": "20171112142542206",
+    "list-item-icon": "cloud_upload",
+    "modified": "20171112142636202",
+    "span": "4",
+    "tags": "$:/tags/DrawerBottom",
+    "type": "text/vnd.tiddlywiki",
+    "revision": "1"
+  },
+  {
+    "title": "GitHubPlugin/SignInWithOAuth",
+    "created": "20171106112122119",
+    "list": "",
+    "modified": "20171113195521845",
+    "span": "4",
+    "tags": "GitHubPlugin/OAuthLogin",
+    "type": "text/vnd.tiddlywiki",
+    "revision": "1"
+  },
+  {
+    "title": "GitHubPlugin/SyncFilter",
+    "created": "20171119113751358",
+    "creator": "ustuehler",
+    "modified": "20171119114326736",
+    "modifier": "ustuehler",
+    "revision": "0",
+    "type": "text/vnd.tiddlywiki"
+  },
+  {
+    "title": "GitHubPlugin/Tests/WriteFile",
+    "created": "20171114034551701",
+    "modified": "20171114045944909",
+    "tags": "",
+    "type": "text/vnd.tiddlywiki",
+    "revision": "1"
+  },
+  {
+    "title": "New Tiddler 1",
+    "created": "20171120185602286",
+    "modified": "20171120185606113",
+    "tags": "$:/github/Setup",
+    "revision": "1"
+  },
+  {
+    "title": "New Tiddler 2",
+    "created": "20171124223124943",
+    "modified": "20171124223134628",
+    "tags": "GitHubPlugin",
+    "revision": "1"
+  },
+  {
+    "title": "New Tiddler",
+    "created": "20171120164528156",
+    "creator": "ustuehler",
+    "modified": "20171120164530893",
+    "modifier": "ustuehler",
+    "tags": "$:/github/Setup",
+    "revision": "1"
+  }
+]
