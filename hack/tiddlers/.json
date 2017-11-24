@@ -1,0 +1,173 @@
+[
+  {
+    "title": "$:/StarredTiddlers",
+    "created": "20171120000626880",
+    "creator": "ustuehler",
+    "list": "GitHubPlugin $:/status/GitHub $:/status/GitHubAdaptor",
+    "modified": "20171120154035759",
+    "modifier": "ustuehler",
+    "type": "text/vnd.tiddlywiki"
+  },
+  {
+    "title": "$:/StoryList",
+    "list": "GitHubPlugin",
+    "text": ""
+  },
+  {
+    "title": "$:/config/GitHub/Path",
+    "created": "20171120003403527",
+    "modified": "20171120003900823",
+    "type": "text/vnd.tiddlywiki",
+    "text": "hack/tiddlers"
+  },
+  {
+    "title": "$:/config/GitHub/SyncFilter",
+    "type": "text/vnd.tiddlywiki",
+    "text": "-[[$:/StoryList]]"
+  },
+  {
+    "title": "GitHub",
+    "created": "20171120003044481",
+    "modified": "20171120003049526",
+    "type": "text/vnd.tiddlywiki",
+    "text": "https://github.com"
+  },
+  {
+    "title": "GitHubPages",
+    "caption": "GitHub Pages",
+    "created": "20171120002931512",
+    "creator": "ustuehler",
+    "modified": "20171120041007559",
+    "modifier": "ustuehler",
+    "type": "text/vnd.tiddlywiki",
+    "url": "https://pages.github.com",
+    "text": "{{!!url}}"
+  },
+  {
+    "title": "GitHubPlugin/Development/BrowserConsole",
+    "created": "20171111235149192",
+    "modified": "20171113224234138",
+    "span": "7",
+    "tags": "",
+    "type": "text/vnd.tiddlywiki",
+    "text": "You can access the plugin's library functions which encapsulate all access to the GitHub API from the browser console as `$tw.utils.github`.\n\n; Example: Access the plugin object\n\n```javascript\nvar github = $tw.modules.execute('$:/plugins/ustuehler/github')\n```\n\n; Example: Get a user's profile data\n\n```javascript\ngithub.getUserProfile('ustuehler')\n  .then(function(profile) {\n    console.log(profile)\n  })\n```\n\n; Example: Sign in with access token\n\n```javascript\ngithub.signIn(accessToken)\n  .then(function(user) {\n    console.log('Signed in as ' + user.login + '.')\n  })\n```\n\n; Example: List the signed-in user's repositories\n\n```javascript\ngithub.getUserRepos()\n  .then(function(repos) {\n    console.log('Retrieved ' + repos.length + ' repositories.')\n  })\n```"
+  },
+  {
+    "title": "GitHubPlugin/Development/SignInButton",
+    "created": "20171113220816832",
+    "modified": "20171113224416486",
+    "tags": "",
+    "type": "text/vnd.tiddlywiki",
+    "text": "{{$:/plugins/ustuehler/github/ui/SignIn}}\n\nThe button above creates an ActionSendMessageWidget with `tm-github-sign-in` as its `$message` attribute. The handler for this message is installed by the [[startup module|$:/plugins/ustuehler/github/modules/startup.js]].\n"
+  },
+  {
+    "title": "GitHubPlugin/Development/Startup",
+    "created": "20171112214631744",
+    "modified": "20171113223931560",
+    "type": "text/vnd.tiddlywiki",
+    "text": "The plugin's [[startup|$:/plugins/ustuehler/github/modules/startup.js]] module gets executed after the core's [[miscellaneous startup logic|Startup]].\n\nThis means that other parts of this plugin could already be executing as well, unless care is taken. Therefore, ''I don't want UI components to call plugin code directly''; they should rely entirely on event handling and messaging.\n\n[[Next|GitHubPlugin/SignIn]]"
+  },
+  {
+    "title": "GitHubPlugin/Development/SyncAdaptor",
+    "created": "20171112001725155",
+    "modified": "20171114002504736",
+    "type": "text/vnd.tiddlywiki",
+    "text": "The ''<<edit-tiddler-link to:\"$:/plugins/ustuehler/github/lib/githubadaptor.js\" text:\"githubadaptor\">>'' module of the GitHubPlugin is an implementation of a SyncAdaptor. It synchronises changed tiddlers with a repository on GitHub.\n\nThe current implementation has used the [[tiddlywebadaptor|$:/plugins/tiddlywiki/tiddlyweb/tiddlywebadaptor.js]] module from TiddlyWiki5 as a reference."
+  },
+  {
+    "title": "GitHubPlugin/Development/WriteFileButton",
+    "created": "20171111234832070",
+    "modified": "20171114034744499",
+    "span": "12",
+    "type": "text/vnd.tiddlywiki",
+    "text": "The {{||$:/plugins/ustuehler/github/Buttons/write-file}} button <<edit-tiddler-link to:\"$:/plugins/ustuehler/github/Buttons/write-file\" text:\"(source)\">> uploads the current tiddler to GitHub. "
+  },
+  {
+    "title": "GitHubPlugin/ListRepositories",
+    "created": "20171112053350353",
+    "list": "tw5-elite ustuehler.github.io tw5-material lxc-desktop keep-a-changelog git-cvs openbsd-ports openbsd-src monkey s2i-php-container docker-nethack bike tlsd TiddlyWiki5 puppet-fai docker firewall postfix-dovecot-cookbook todo-txt-gem kitchen-ec2 debian-package-builder-plugin openvpn-ssh-ca dep-selector-libgecode dymo-label docker-plugin rundeck-mcollective-nodes tests-ssh-hardening light limitless-led monkey-dashboard gnome-terminal-colors-solarized puppet-motd ruby_admin puppet-facter confluencer puppet-dashboard puppet-puppet pry-ops puppet-bacula puppet-cucumber puppet-ruby puppet-openssh puppet-debian puppet-openstack vim-ledger rspec-system pry puppetlabs-stdlib httpi facter mcollective-plugins marionette-collective jenkins",
+    "modified": "20171112054057193",
+    "span": "4",
+    "tags": "[[GitHub Pages]]",
+    "type": "text/vnd.tiddlywiki",
+    "text": "\\define filter() -[[]]\n\\define listTiddler() $:/temp/GitHub/ListRepositories\n\n''When'' I activate the Refresh button\n\n<$github>\n<$button class=\"mdc-button mdc-button--raised\">\n<$action-githublistrepos tiddler=<<listTiddler>> filter=<<filter>>/>\nRefresh\n</$button>\n</$github>\n\n''Then'' the list of my repositories on GitHub appears below\n\n<$list variable=\"repo\" filter=\"[tag<listTiddler>]\">\n<$text text=<<repo>>/><br>\n</$list>"
+  },
+  {
+    "title": "GitHubPlugin/OAuthLogin",
+    "created": "20171106085959009",
+    "modified": "20171112053038786",
+    "tags": "MissingFeatures",
+    "type": "text/vnd.tiddlywiki",
+    "text": "The login feature was to be provided by the OAuthPlugin, but now the FirebasePlugin is used to handle the OAuth flow and to store GitHub credentials, instead."
+  },
+  {
+    "title": "GitHubPlugin/ObtainingClientCredentials",
+    "created": "20171113195159552",
+    "modified": "20171113195436533",
+    "tags": "",
+    "type": "text/vnd.tiddlywiki",
+    "text": "<a\n  target=\"_\"\n  href=\"https://github.com/settings/applications/new\"\n  class=\"mdc-button mdc-button--raised\"\n  style=\"color: white;\"\n>New Application</a>\n<a\n  target=\"_\"\n  href=\"https://github.com/settings/developers\"\n  class=\"mdc-button\"\n>View Applications</a>"
+  },
+  {
+    "title": "GitHubPlugin/SaveAll",
+    "caption": "Save All",
+    "created": "20171112142542206",
+    "list-item-icon": "cloud_upload",
+    "modified": "20171112142636202",
+    "span": "4",
+    "tags": "$:/tags/DrawerBottom",
+    "type": "text/vnd.tiddlywiki",
+    "text": "{{SaveToGitHub}}"
+  },
+  {
+    "title": "GitHubPlugin/SignInWithOAuth",
+    "created": "20171106112122119",
+    "list": "",
+    "modified": "20171113195521845",
+    "span": "4",
+    "tags": "GitHubPlugin/OAuthLogin",
+    "type": "text/vnd.tiddlywiki",
+    "text": "<span style=\"color: orange;\">''This flow is incomplete.'' Follow the new sign-in flow described in [[GitHubPlugin/SignIn]].</span>\n\n<$github-signin>\n\nSigning in with your GitHub account lets you synchronize your changes with the GitRepository.\n\n''Step 1: Obtain a client ID and secret''\n\n{{GitHubPlugin/ObtainingClientCredentials}}\n\n''Step 2: Set client ID and secret for this application''\n\n<$button\n  to=\"OAuthSettings\"\n  class=\"mdc-button mdc-button--raised\"\n  style=\"color: white;\"\n>Open Settings</$button>\n\n''Step 3: Sign in with your ~GitHub account''\n\n{{$:/plugins/ustuehler/github/Buttons/sign-in}}\n\n</$github-signin>"
+  },
+  {
+    "title": "GitHubPlugin/SyncFilter",
+    "created": "20171119113751358",
+    "creator": "ustuehler",
+    "modified": "20171119114326736",
+    "modifier": "ustuehler",
+    "revision": "0",
+    "type": "text/vnd.tiddlywiki",
+    "text": ""
+  },
+  {
+    "title": "GitHubPlugin/Tests/WriteFile",
+    "created": "20171114034551701",
+    "modified": "20171114045944909",
+    "tags": "",
+    "type": "text/vnd.tiddlywiki",
+    "text": "\\define signedIn()\n[[$:/status/GitHub]field:signed-in[true]]\n\\end\n\\define signedOut()\n[[$:/status/GitHub]field:signed-in[false]]\n\\end\n\\define openFileOnGitHub(path:\"\" file:\"\")\n<$macrocall $name=\"github-blob-button\"\n  org={{$:/config/GitHub/Org}}\n  repo={{$:/config/GitHub/Repo}}\n  branch={{$:/config/GitHub/Branch}}\n  file=\"$path$/$file$\"/>\n\\end\n\n''Given'' the user is signed in\n\n{{GitHubPlugin/SignIn}}\n\n<$list variable=\"\" filter=<<signedIn>>>\n\n''And'' the tiddler repository location is configured as\n\n{{GitHubPlugin/SyncSettings}}\n\n''When'' the user activates the button\n\n{{Test||$:/plugins/ustuehler/github/Buttons/write-file}}\n\n''Then'' the tiddler <<currenTiddler>> appears on ~GitHub\n\n<$macrocall $name=\"openFileOnGitHub\"\n  path={{$:/config/GitHub/Path}}\n  file=\"Test.tid\"/>\n\n</$list>\n\n[[Prev|GitHubPlugin/Setup]] |\n[[Up|GitHubPlugin]] |\n[[Next|GitHubPlugin/SyncAdaptor]]"
+  },
+  {
+    "title": "New Tiddler 1",
+    "created": "20171120185602286",
+    "modified": "20171120185606113",
+    "tags": "$:/github/Setup",
+    "text": ""
+  },
+  {
+    "title": "New Tiddler 2",
+    "created": "20171124223124943",
+    "modified": "20171124223134628",
+    "tags": "GitHubPlugin",
+    "text": "new test tiddler"
+  },
+  {
+    "title": "New Tiddler",
+    "created": "20171120164528156",
+    "creator": "ustuehler",
+    "modified": "20171120164530893",
+    "modifier": "ustuehler",
+    "tags": "$:/github/Setup",
+    "text": ""
+  }
+]
