@@ -1,7 +1,10 @@
 created: 20171120000626880
 creator: ustuehler
-list: $:/github/Setup $:/status/GitHubAdaptor
-modified: 20171120154035759
+list: $:/github/Setup
+modified: 20171124235814723
 modifier: ustuehler
+revision: 9dc9fade6026fa3ee8fc0c173b4b212d799133aa
 title: $:/StarredTiddlers
 type: text/vnd.tiddlywiki
+x-github-path: $__StarredTiddlers.tid
+
