@@ -3,3 +3,7 @@ title: $:/plugins/ustuehler/github/readme
 This plugin synchronises changed tiddlers with a repository on ~GitHub. It must be [[set up|$:/github/Setup]] before it can be used.
 
 The plugin includes the <a href="https://github.com/github-tools/github">~GitHub.js</a> client library, but does not curretly expose it directly.
+
+! Limitations
+
+The [[GitHub API|https://developer.github.com/v3/repos/contents/#get-contents]] only supports files up to 1 megabyte in size. This means that only tiddlers small enough to fall under that limit can be synchronised.

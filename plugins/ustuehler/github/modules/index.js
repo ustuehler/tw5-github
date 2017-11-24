@@ -15,8 +15,6 @@ The plugin's main logic
   var GitHubAdaptor = require('$:/plugins/ustuehler/github/githubadaptor').GitHubAdaptor
 
   var GitHub = function () {
-    var self = this
-
     if ($tw.syncadaptor instanceof GitHubAdaptor) {
       // Manage the global githubadaptor
       this.syncadaptor = $tw.syncadaptor
@@ -33,8 +31,13 @@ The plugin's main logic
       })
     }
 
+    var self = this
     Component.call(this, 'GitHub').then(function () {
-      self.status.update(signedOutStatus())
+      // Mirror the relevant githubadaptor status changes in our status
+      self.updateSyncadaptorStatus()
+      self.syncadaptor.status.addEventListener('change', function () {
+        self.updateSyncadaptorStatus()
+      })
     })
   }
 
@@ -53,11 +56,25 @@ The plugin's main logic
     return getUserName()
   }
 
+  GitHub.prototype.updateSyncadaptorStatus = function () {
+    if (this.syncadaptor.isSignedIn()) {
+      this.status.update(signedInStatus())
+    } else {
+      this.status.update(signedOutStatus())
+    }
+
+    if (this.syncadaptor.isSynchronising()) {
+      this.status.update(synchronisingStatus())
+    } else {
+      this.status.update(notSynchronisingStatus())
+    }
+  }
+
   GitHub.prototype.signIn = function (username, accessToken) {
     var self = this
 
-    if (this.status.fields['signed-in']) {
-      return Promise.resolve()
+    if (this.signInFlow) {
+      return Promise.resolve(this.signInFlow)
     }
 
     if (arguments.length < 2) {
@@ -65,27 +82,33 @@ The plugin's main logic
       username = null
     }
 
-    // Create a new client with the provided credentials
-    var client = new Client(username, accessToken)
+    // Shut down the old client
+    if (this.client) {
+      this.client.shutdown().catch(function (err) {
+        console.log('GitHub.signIn: Ignored error in old client shutdown: ' + err)
+      })
+    }
 
-    // Attempt to sign in using the new client
+    // Attempt to sign in using a new client
+    this.client = new Client(username, accessToken)
     this.status.update(signingInStatus())
-    return client.signIn()
+    this.signInFlow = this.client.signIn()
       .then(function (user) {
-        self.client = client
         setUserName(user.login)
         //rememberAccessToken(accessToken)
         self.status.setError(null)
-        self.status.update(signedInStatus())
         // Asynchronous; we don't care if this fails
         self.startSync()
+        this.signInFlow = null
+        return user
       })
       .catch(function (err) {
         forgetAccessToken()
         self.status.setError(err)
-        self.status.update(signedOutStatus())
+        this.signInFlow = null
         return err
       })
+    return this.signInFlow
   }
 
   GitHub.prototype.signOut = function () {
@@ -109,19 +132,15 @@ The plugin's main logic
       })
       .then(function () {
         self.status.setError(null)
-        self.status.update(synchronisingStatus())
       })
       .catch(function (err) {
         self.status.setError(err)
-        self.status.update(notSynchronisingStatus())
         throw err
       })
   }
 
   GitHub.prototype.stopSync = function () {
     var self = this
-
-    this.status.update(notSynchronisingStatus())
 
     return (this.syncer.stop ? this.syncer.stop() : Promise.resolve())
       .then(function () {
