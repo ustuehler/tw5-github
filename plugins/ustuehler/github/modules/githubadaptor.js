@@ -274,12 +274,18 @@ A sync adaptor module for synchronising tiddlers with GitHub
   GitHubAdaptor.prototype.computeSkinnyTiddlersFromWiki = function () {
     var skinnyTiddlers = []
     $tw.wiki.forEachTiddler(function (title, tiddler) {
+      if (!tiddler.hasField(FIELD_GITHUB_PATH)) {
+        // Only save known tiddlers back, because includedWikis from tiddlywiki.info files are not resolved yet
+        return
+      }
+
       var tiddlerFields = {}
       for (var f in tiddler.fields) {
         if (f !== 'text') {
           tiddlerFields[f] = tiddler.getFieldString(f)
         }
       }
+
       skinnyTiddlers.push(tiddlerFields)
     })
     return Promise.resolve(skinnyTiddlers)
