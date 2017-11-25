@@ -94,6 +94,10 @@ A sync adaptor module for synchronising tiddlers with GitHub
           self.status.update(self.notRateLimitedStatus())
         }
       })
+
+      // Force querying the rate limit API the next time slowDown is called
+      this.client.getRateLimit().setRemaining(0)
+      this.client.getRateLimit().setResetDate(new Date())
     }
     return this.client
   }
@@ -273,7 +277,7 @@ A sync adaptor module for synchronising tiddlers with GitHub
 
   GitHubAdaptor.prototype.computeSkinnyTiddlersFromWiki = function () {
     var skinnyTiddlers = []
-    $tw.wiki.forEachTiddler(function (title, tiddler) {
+    $tw.wiki.forEachTiddler({includeSystem: true}, function (title, tiddler) {
       if (!tiddler.hasField(FIELD_GITHUB_PATH)) {
         // Only save known tiddlers back, because includedWikis from tiddlywiki.info files are not resolved yet
         return
