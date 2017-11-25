@@ -1,7 +1,7 @@
 [
   {
     "title": "$:/StarredTiddlers",
-    "revision": "9dc9fade6026fa3ee8fc0c173b4b212d799133aa",
+    "revision": "9ea58f1c00dd0c2bee7ab414ad00a3ae8393482d",
     "created": "20171120000626880",
     "creator": "ustuehler",
     "list": "$:/github/Setup",
@@ -15,19 +15,22 @@
     "revision": "09859405d0c0d96e78403903590d60fa88e9670b",
     "created": "20171120003403527",
     "modified": "20171120003900823",
-    "type": "text/vnd.tiddlywiki"
+    "type": "text/vnd.tiddlywiki",
+    "x-github-path": "$__config_GitHub_Path.tid"
   },
   {
     "title": "$:/config/GitHub/SyncFilter",
     "revision": "5ff55eedb340697d45e76c51ac6db21fbf01de90",
-    "type": "text/vnd.tiddlywiki"
+    "type": "text/vnd.tiddlywiki",
+    "x-github-path": "$__config_GitHub_SyncFilter.tid"
   },
   {
     "title": "GitHub",
     "revision": "1564d9322f1da6cdccc727a2425f89b9cc0896e9",
     "created": "20171120003044481",
     "modified": "20171120003049526",
-    "type": "text/vnd.tiddlywiki"
+    "type": "text/vnd.tiddlywiki",
+    "x-github-path": "GitHub.tid"
   },
   {
     "title": "GitHubPages",
@@ -38,7 +41,8 @@
     "modified": "20171120041007559",
     "modifier": "ustuehler",
     "type": "text/vnd.tiddlywiki",
-    "url": "https://pages.github.com"
+    "url": "https://pages.github.com",
+    "x-github-path": "GitHubPages.tid"
   },
   {
     "title": "GitHubPlugin/Development/BrowserConsole",
@@ -47,7 +51,8 @@
     "modified": "20171113224234138",
     "span": "7",
     "tags": "",
-    "type": "text/vnd.tiddlywiki"
+    "type": "text/vnd.tiddlywiki",
+    "x-github-path": "GitHubPlugin_Development_BrowserConsole.tid"
   },
   {
     "title": "GitHubPlugin/Development/SignInButton",
@@ -55,21 +60,24 @@
     "created": "20171113220816832",
     "modified": "20171113224416486",
     "tags": "",
-    "type": "text/vnd.tiddlywiki"
+    "type": "text/vnd.tiddlywiki",
+    "x-github-path": "GitHubPlugin_Development_SignInButton.tid"
   },
   {
     "title": "GitHubPlugin/Development/Startup",
     "revision": "e136b1e7dfebd8f4375346ce9361f3d5200270d7",
     "created": "20171112214631744",
     "modified": "20171113223931560",
-    "type": "text/vnd.tiddlywiki"
+    "type": "text/vnd.tiddlywiki",
+    "x-github-path": "GitHubPlugin_Development_Startup.tid"
   },
   {
     "title": "GitHubPlugin/Development/SyncAdaptor",
     "revision": "a61a7ac13dd891b679cf6dcef86ebe236e5f6a57",
     "created": "20171112001725155",
     "modified": "20171114002504736",
-    "type": "text/vnd.tiddlywiki"
+    "type": "text/vnd.tiddlywiki",
+    "x-github-path": "GitHubPlugin_Development_SyncAdaptor.tid"
   },
   {
     "title": "GitHubPlugin/Development/WriteFileButton",
@@ -77,7 +85,8 @@
     "created": "20171111234832070",
     "modified": "20171114034744499",
     "span": "12",
-    "type": "text/vnd.tiddlywiki"
+    "type": "text/vnd.tiddlywiki",
+    "x-github-path": "GitHubPlugin_Development_WriteFileButton.tid"
   },
   {
     "title": "GitHubPlugin/ListRepositories",
@@ -87,7 +96,8 @@
     "modified": "20171112054057193",
     "span": "4",
     "tags": "[[GitHub Pages]]",
-    "type": "text/vnd.tiddlywiki"
+    "type": "text/vnd.tiddlywiki",
+    "x-github-path": "GitHubPlugin_ListRepositories.tid"
   },
   {
     "title": "GitHubPlugin/OAuthLogin",
@@ -95,7 +105,8 @@
     "created": "20171106085959009",
     "modified": "20171112053038786",
     "tags": "MissingFeatures",
-    "type": "text/vnd.tiddlywiki"
+    "type": "text/vnd.tiddlywiki",
+    "x-github-path": "GitHubPlugin_OAuthLogin.tid"
   },
   {
     "title": "GitHubPlugin/ObtainingClientCredentials",
@@ -103,7 +114,8 @@
     "created": "20171113195159552",
     "modified": "20171113195436533",
     "tags": "",
-    "type": "text/vnd.tiddlywiki"
+    "type": "text/vnd.tiddlywiki",
+    "x-github-path": "GitHubPlugin_ObtainingClientCredentials.tid"
   },
   {
     "title": "GitHubPlugin/SaveAll",
@@ -114,7 +126,8 @@
     "modified": "20171112142636202",
     "span": "4",
     "tags": "$:/tags/DrawerBottom",
-    "type": "text/vnd.tiddlywiki"
+    "type": "text/vnd.tiddlywiki",
+    "x-github-path": "GitHubPlugin_SaveAll.tid"
   },
   {
     "title": "GitHubPlugin/SignInWithOAuth",
@@ -124,16 +137,18 @@
     "modified": "20171113195521845",
     "span": "4",
     "tags": "GitHubPlugin/OAuthLogin",
-    "type": "text/vnd.tiddlywiki"
+    "type": "text/vnd.tiddlywiki",
+    "x-github-path": "GitHubPlugin_SignInWithOAuth.tid"
   },
   {
     "title": "GitHubPlugin/SyncFilter",
-    "revision": "0",
+    "revision": "b8f6fcb0a8ae4ba9e3aa95bb63dc8ff00a42616a",
     "created": "20171119113751358",
     "creator": "ustuehler",
     "modified": "20171119114326736",
     "modifier": "ustuehler",
-    "type": "text/vnd.tiddlywiki"
+    "type": "text/vnd.tiddlywiki",
+    "x-github-path": "GitHubPlugin_SyncFilter.tid"
   },
   {
     "title": "GitHubPlugin/Tests/WriteFile",
@@ -141,6 +156,7 @@
     "created": "20171114034551701",
     "modified": "20171114045944909",
     "tags": "",
-    "type": "text/vnd.tiddlywiki"
+    "type": "text/vnd.tiddlywiki",
+    "x-github-path": "GitHubPlugin_Tests_WriteFile.tid"
   }
 ]
