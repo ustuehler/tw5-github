@@ -26,12 +26,24 @@ Rate limit computation and request rate tracking logic
     this.sha = sha
   }
 
+  Tree.prototype.getCommitSHA = function () {
+    return this.client.getCommitSHA(this.user, this.repo, this.ref)
+  }
+
   Tree.prototype.getNodes = function () {
     return this.client.getTreeNodes(this.user, this.repo, this.ref, this.path, this.sha)
   }
 
   Tree.prototype.getTree = function (path, treeSHA) {
     return new Tree(this.client, this.user, this.repo, this.ref, this.path + '/' + path, treeSHA)
+  }
+
+  Tree.prototype.getSha = function (path) {
+    return this.client.getSha(this.user, this.repo, this.branch, this.path + '/' + path)
+  }
+
+  Tree.prototype.getContents = function (path) {
+    return this.client.getContents(this.user, this.repo, this.ref, this.path + '/' + path)
   }
 
   Tree.prototype.getFileContent = function (path) {
@@ -91,11 +103,19 @@ Rate limit computation and request rate tracking logic
       throw new Error('Unsupported non-utf8 tiddler encoding: ' + encoding)
     }
 
-    return this.getFileContent(name)
-      .then(function (data) {
+    // XXX: breaking through several layers
+    var revision
+    var self = this
+    return this.getSha(name)
+      .then(function (sha) {
+        revision = sha
+        return self.client.getBlob(self.user, self.repo, sha)
+      })
+      .then(function (response) {
         var tiddlers
-        if (data) {
-          tiddlers = $tw.wiki.deserializeTiddlers(ext, data, fields)
+        if (response.data) {
+          fields['revision'] = revision
+          tiddlers = $tw.wiki.deserializeTiddlers(ext, response.data, fields)
         } else {
           tiddlers = []
         }

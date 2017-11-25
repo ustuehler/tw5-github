@@ -327,13 +327,66 @@ and respects rate-limits as reported by GitHub's Rate Limiting API
   }
 
   /*
-   * getFileContent resolves to the full content of the specified file.  It
-   * will currently fail if the content is close to, or exceeds 1 metabyte.
+   * getSha resolves to the blob SHA for the specified path
    */
-  Client.prototype.getFileContent = function (user, repo, ref, path) {
+  Client.prototype.getSha = function (user, repo, branch, path) {
     var self = this
     return this.slowDown()
-      .then(function (/* self */) {
+      .then(function () {
+        return self.getRepo(user, repo)
+      })
+      .then(function (r) {
+        rateLimit.decreaseRemaining()
+        return r.getSha(branch, path)
+      })
+      .then(function (response) {
+        return response.data.sha
+      })
+  }
+
+  /*
+   * getBlob resolves to the response for the specified blob SHA
+   */
+  Client.prototype.getBlob = function (user, repo, sha) {
+    var self = this
+    return this.slowDown()
+      .then(function (/*self*/) {
+        return self.getRepo(user, repo)
+      })
+      .then(function (r) {
+        rateLimit.decreaseRemaining()
+        return r.getBlob(sha)
+      })
+  }
+
+  /*
+   * getCommitSHA resolves to the commit SHA for the specified ref
+   */
+  /*
+  Client.prototype.getCommitSHA = function (user, repo, ref) {
+    var self = this
+    return this.slowDown()
+      .then(function () {
+        return self.getRepo(user, repo)
+      })
+      .then(function (r) {
+        // TODO: Use Blob API for large files up to 100 megabytes
+        rateLimit.decreaseRemaining()
+        return r.getRef(ref)
+      })
+      .then(function (response) {
+        return response.data.sha
+      })
+  }
+  */
+
+  /*
+   * getContents
+   */
+  Client.prototype.getContents = function (user, repo, ref, path) {
+    var self = this
+    return this.slowDown()
+      .then(function (/*self*/) {
         return self.getRepo(user, repo)
       })
       .then(function (r) {
@@ -341,6 +394,14 @@ and respects rate-limits as reported by GitHub's Rate Limiting API
         rateLimit.decreaseRemaining()
         return r.getContents(ref, path, true)
       })
+  }
+
+  /*
+   * getFileContent resolves to the full content of the specified file.  It
+   * will currently fail if the content is close to, or exceeds 1 metabyte.
+   */
+  Client.prototype.getFileContent = function (user, repo, ref, path) {
+    return this.getContents(user, repo, ref, path)
       .then(function (response) {
         return response.data
       })
