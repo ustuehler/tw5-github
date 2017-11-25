@@ -49,8 +49,8 @@ make_buildinfo() {
   local dir="$1"
   local vprefix="$2"
   local name=$(dirname $vprefix)
-  local out="$EDITION_PATH/tiddlers/content/${name}_current.tid"
   local ver=$(jq -r .version "$dir"/plugin.info)
+  local out="$EDITION_PATH/tiddlers/content/${vprefix/\//_}$ver-current.tid"
   local new="$(buildinfo_tid "$dir" "$vprefix" "$ver")"
 
   if [[ -f $out ]]; then

@@ -325,7 +325,7 @@ A sync adaptor module for synchronising tiddlers with GitHub
                   }
                 })
               }
-              return false // recurse, if the node is a directory
+              return true // recurse, if the node is a directory
             })
           })
           .then(function () {
