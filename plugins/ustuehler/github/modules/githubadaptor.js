@@ -374,8 +374,8 @@ A sync adaptor module for synchronising tiddlers with GitHub
    */
   GitHubAdaptor.prototype.loadTiddlerFromStore = function (title) {
     var tiddler = $tw.wiki.getTiddler(title)
-    var path
 
+    var path
     if (tiddler.fields[FIELD_GITHUB_PATH]) {
       path = tiddler.fields[FIELD_GITHUB_PATH]
     } else {
@@ -403,19 +403,17 @@ A sync adaptor module for synchronising tiddlers with GitHub
    * GitHub repository locaation
    */
   GitHubAdaptor.prototype.saveTiddlerInStore = function (tiddler) {
-    var user = this.config.user
-    var repo = this.config.repo
-    var branch = this.config.branch
-    var title = tiddler.fields.title
-    var path = this.config.path + '/' + tiddlerPathFromTitle(title)
-    var content = tiddlerFileContent(this.wiki, tiddler)
-    var message = null
-    var options = {
-      committer: this.config.committer
+    var path
+    if (tiddler.fields[FIELD_GITHUB_PATH]) {
+      path = tiddler.fields[FIELD_GITHUB_PATH]
+    } else {
+      var title = tiddler.fields.title
+      path = tiddlerPathFromTitle(title)
     }
 
-    return this.start().then(function (client) {
-      return client.writeFile(user, repo, branch, path, content, message, options)
+    return this.getTree().then(function (tree) {
+      var content = tiddlerFileContent($tw.wiki, tiddler)
+      return tree.writeFile(path, content)
     })
   }
 
@@ -436,8 +434,7 @@ A sync adaptor module for synchronising tiddlers with GitHub
 
   function tiddlerFileContent (wiki, tiddler) {
     // ref: FileSystemAdaptor.prototype.saveTiddler
-    var content = wiki.renderTiddler('text/plain', '$:/core/templates/tid-tiddler', {variables: {currentTiddler: tiddler.fields.title}})
-    return content
+    return wiki.renderTiddler('text/plain', '$:/core/templates/tid-tiddler', {variables: {currentTiddler: tiddler.fields.title}})
   }
 
   function tiddlerPathFromTitle (title) {
