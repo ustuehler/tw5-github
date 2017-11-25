@@ -236,14 +236,13 @@ A sync adaptor module for synchronising tiddlers with GitHub
     var self = this
     return this.computeSkinnyTiddlers()
       .then(function (tiddlers) {
-        var content = JSON.stringify(tiddlers, null, '  ')
-
         if (!self.isSignedIn()) {
           console.debug('Unauthenticated users cannot write the skinny tiddler file')
           return tiddlers
         }
 
         // Try to create the skinny tiddler file
+        var content = JSON.stringify(tiddlers, null, '  ')
         return self.writeSkinnyTiddlerFile(content)
           .then(function () {
             // Return the computed skinny tiddlers array
@@ -255,6 +254,35 @@ A sync adaptor module for synchronising tiddlers with GitHub
             return tiddlers
           })
       })
+  }
+
+  GitHubAdaptor.prototype.updateSkinnyTiddlerFile = function () {
+    var self = this
+
+    if (!this.isSignedIn()) {
+      // Unauthenticated users cannot write the skinny tiddler file
+      return Promise.resolve()
+    }
+
+    return this.computeSkinnyTiddlersFromWiki()
+      .then(function (tiddlers) {
+        var content = JSON.stringify(tiddlers, null, '  ')
+        return self.writeSkinnyTiddlerFile(content)
+      })
+  }
+
+  GitHubAdaptor.prototype.computeSkinnyTiddlersFromWiki = function () {
+    var skinnyTiddlers = []
+    $tw.wiki.forEachTiddler(function (title, tiddler) {
+      var tiddlerFields = {}
+      for (var f in tiddler.fields) {
+        if (f !== 'text') {
+          tiddlerFields[f] = tiddler.getFieldString(f)
+        }
+      }
+      skinnyTiddlers.push(tiddlerFields)
+    })
+    return Promise.resolve(skinnyTiddlers)
   }
 
   /*
