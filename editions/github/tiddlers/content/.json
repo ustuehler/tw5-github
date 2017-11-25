@@ -1,0 +1,29 @@
+[
+  {
+    "title": "GitHubPlugin",
+    "revision": "1127ac09d3f4be16acc1b1484769f75d62de9333",
+    "caption": "GitHub Plugin",
+    "created": "20171120040835296",
+    "modified": "20171120041134954",
+    "type": "text/vnd.tiddlywiki"
+  },
+  {
+    "title": "GitHubPlugin/Documentation",
+    "revision": "ad2c9980152be5b74c130446c0536f9c36fc8a41",
+    "created": "20171120002115063",
+    "creator": "ustuehler",
+    "modified": "20171120002353049",
+    "modifier": "ustuehler",
+    "tags": "",
+    "type": "text/vnd.tiddlywiki"
+  },
+  {
+    "title": "github/v0.1.0-current",
+    "revision": "c1491e3e20503215c9eab29119b89307aeb50dff",
+    "caption": ">0.1.0",
+    "tags": "$:/tags/ReleaseNotes",
+    "created": "20171119224601",
+    "modified": "20171119224601",
+    "released": "20171119224601"
+  }
+]
