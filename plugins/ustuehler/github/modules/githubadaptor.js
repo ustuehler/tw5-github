@@ -13,6 +13,9 @@ A sync adaptor module for synchronising tiddlers with GitHub
   var SyncAdaptor = require('$:/plugins/ustuehler/core').SyncAdaptor
   var Tiddlers = require('$:/plugins/ustuehler/core').Tiddlers
 
+  // TODO: move to core plugin
+  var SkinnyTiddlers = require('$:/plugins/ustuehler/github/skinnytiddlers').SkinnyTiddlers
+
   var SKINNY_TIDDLER_FILE = '.json'
 
   var FIELD_GITHUB_PATH = 'x-github-path'
@@ -24,7 +27,9 @@ A sync adaptor module for synchronising tiddlers with GitHub
    * - user: Organisation name or username on GitHub
    * - repo: Repository name
    * - branch: Branch within the repository
-   * - path: Where tiddlers are stored relative to the repository root
+   * - path: Where tiddlers are stored relative to the repository root. This
+   *   should later become the path to an edition (a directory containing a
+   *   tiddlywiki.info file).
    *
    * Defaults are read from configuration tiddlers whose title starts with
    * $:/config/GitHub/, e.g., $:/config/GitHub/User.
@@ -43,6 +48,12 @@ A sync adaptor module for synchronising tiddlers with GitHub
   function GitHubAdaptor (options) {
     // Helper object to read configuration tiddlers
     this.tiddlers = new Tiddlers('GitHub')
+
+    // Exclude adaptorInfo fields
+    this.excludeFields = [FIELD_GITHUB_PATH]
+
+    // Local cache of the skinny tiddler list, because reading and writing it can be slow
+    this.skinnyTiddlers = null
 
     // The runtime configuration for this syncadaptor
     this.config = {
@@ -84,9 +95,13 @@ A sync adaptor module for synchronising tiddlers with GitHub
     if (!this.client) {
       this.client = new Client()
 
+      // Force querying the rate limit API the next time slowDown is called
+      this.client.getRateLimit().setRemaining(0)
+      this.client.getRateLimit().setResetDate(new Date())
+      this.status.update(this.notRateLimitedStatus())
+
       // Reflect GitHub's rate-limiting in our status
       var self = this
-      this.status.update(this.notRateLimitedStatus())
       this.client.addEventListener('ratelimit', function (limited) {
         if (limited) {
           self.status.update(self.rateLimitedStatus())
@@ -94,10 +109,6 @@ A sync adaptor module for synchronising tiddlers with GitHub
           self.status.update(self.notRateLimitedStatus())
         }
       })
-
-      // Force querying the rate limit API the next time slowDown is called
-      this.client.getRateLimit().setRemaining(0)
-      this.client.getRateLimit().setResetDate(new Date())
     }
     return this.client
   }
@@ -220,10 +231,29 @@ A sync adaptor module for synchronising tiddlers with GitHub
    */
   GitHubAdaptor.prototype.getSkinnyTiddlersFromStore = function () {
     var self = this
+
+    // Use the cached result, which may still be empty
+    if (this.skinnyTiddlers) {
+      return Promise.resolve(this.skinnyTiddlers.getTiddlers())
+    }
+
+    // Load the skinny tiddler cache lazyly from a file, once
+    this.skinnyTiddlers = new SkinnyTiddlers({
+      /*
+       * Do not exclude the adaptorInfo fields, because we need hints in the
+       * skinny tiddler list to know in which file each tiddler is stored
+       */
+      excludeFields: []
+    })
+
     return this.getTree()
       .then(function (tree) {
         console.debug('Getting skinny tiddler file')
         return tree.getFileContent(SKINNY_TIDDLER_FILE)
+      })
+      .then(function (tiddlers) {
+        self.skinnyTiddlers.setTiddlers(tiddlers)
+        return tiddlers
       })
       .catch(function (err) {
         // Create the file if it doen't exist
@@ -261,18 +291,14 @@ A sync adaptor module for synchronising tiddlers with GitHub
   }
 
   GitHubAdaptor.prototype.updateSkinnyTiddlerFile = function () {
-    var self = this
-
     if (!this.isSignedIn()) {
       // Unauthenticated users cannot write the skinny tiddler file
       return Promise.resolve()
     }
 
-    return this.computeSkinnyTiddlersFromWiki()
-      .then(function (tiddlers) {
-        var content = JSON.stringify(tiddlers, null, '  ')
-        return self.writeSkinnyTiddlerFile(content)
-      })
+    var tiddlers = this.skinnyTiddlers.getTiddlers()
+    var content = JSON.stringify(tiddlers, null, '  ')
+    return this.writeSkinnyTiddlerFile(content)
   }
 
   GitHubAdaptor.prototype.computeSkinnyTiddlersFromWiki = function () {
@@ -392,6 +418,7 @@ A sync adaptor module for synchronising tiddlers with GitHub
       path = tiddlerPathFromTitle(title)
     }
 
+    var self = this
     return this.getTree().then(function (tree) {
       var fields = {title: title}
       return tree.loadTiddlersFromFile(path, fields)
@@ -403,6 +430,7 @@ A sync adaptor module for synchronising tiddlers with GitHub
 
           var result = tiddlers[0]
           result[FIELD_GITHUB_PATH] = path
+          self.skinnyTiddlers.addTiddler(result)
           return result
         })
     })
@@ -413,17 +441,30 @@ A sync adaptor module for synchronising tiddlers with GitHub
    * GitHub repository locaation
    */
   GitHubAdaptor.prototype.saveTiddlerInStore = function (tiddler) {
+    var fields = tiddler.fields
+    var title = fields.title
     var path
-    if (tiddler.fields[FIELD_GITHUB_PATH]) {
-      path = tiddler.fields[FIELD_GITHUB_PATH]
+
+    if (fields[FIELD_GITHUB_PATH]) {
+      path = fields[FIELD_GITHUB_PATH]
     } else {
-      var title = tiddler.fields.title
       path = tiddlerPathFromTitle(title)
     }
 
+    if (fields.revision === this.skinnyTiddlers.getRevision(title)) {
+      // Current revision is alredy saved, no need to save it again
+      return Promise.resolve()
+    }
+
+    var self = this
     return this.getTree().then(function (tree) {
       var content = tiddlerFileContent($tw.wiki, tiddler)
       return tree.writeFile(path, content)
+        .then(function (response) {
+          var sha = response.data.content.sha
+          $tw.wiki.setField(tiddler, 'revision', null, sha)
+          self.skinnyTiddlers.addTiddler(tiddler)
+        })
     })
   }
 
@@ -437,7 +478,9 @@ A sync adaptor module for synchronising tiddlers with GitHub
     var branch = this.config.branch
     var path = this.config.path + '/' + tiddlerPathFromTitle(title)
 
+    var self = this
     return this.start().then(function (client) {
+      self.skinnyTiddlers.deleteTiddler(title)
       return client.deleteFile(user, repo, branch, path)
     })
   }
