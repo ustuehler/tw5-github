@@ -1,10 +1,11 @@
 created: 20171106112122119
 list: 
-modified: 20171113195521845
+modified: 20171203203753544
 span: 4
 tags: GitHubPlugin/OAuthLogin
 title: GitHubPlugin/SignInWithOAuth
 type: text/vnd.tiddlywiki
+x-github-path: GitHubPlugin_SignInWithOAuth.tid
 
 <span style="color: orange;">''This flow is incomplete.'' Follow the new sign-in flow described in [[GitHubPlugin/SignIn]].</span>
 

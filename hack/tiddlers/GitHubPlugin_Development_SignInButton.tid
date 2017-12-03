@@ -1,8 +1,9 @@
 created: 20171113220816832
-modified: 20171113224416486
+modified: 20171203203800597
 tags: 
 title: GitHubPlugin/Development/SignInButton
 type: text/vnd.tiddlywiki
+x-github-path: GitHubPlugin_Development_SignInButton.tid
 
 {{$:/plugins/ustuehler/github/ui/SignIn}}
 

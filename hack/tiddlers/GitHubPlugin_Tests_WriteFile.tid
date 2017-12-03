@@ -1,8 +1,9 @@
 created: 20171114034551701
-modified: 20171114045944909
+modified: 20171203203751111
 tags: 
 title: GitHubPlugin/Tests/WriteFile
 type: text/vnd.tiddlywiki
+x-github-path: GitHubPlugin_Tests_WriteFile.tid
 
 \define signedIn()
 [[$:/status/GitHub]field:signed-in[true]]

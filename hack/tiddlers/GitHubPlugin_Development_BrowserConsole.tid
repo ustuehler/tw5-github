@@ -1,9 +1,10 @@
 created: 20171111235149192
-modified: 20171113224234138
+modified: 20171203203801620
 span: 7
 tags: 
 title: GitHubPlugin/Development/BrowserConsole
 type: text/vnd.tiddlywiki
+x-github-path: GitHubPlugin_Development_BrowserConsole.tid
 
 You can access the plugin's library functions which encapsulate all access to the GitHub API from the browser console as `$tw.utils.github`.
 

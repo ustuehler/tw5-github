@@ -1,7 +1,8 @@
 created: 20171112214631744
-modified: 20171113223931560
+modified: 20171203203800592
 title: GitHubPlugin/Development/Startup
 type: text/vnd.tiddlywiki
+x-github-path: GitHubPlugin_Development_Startup.tid
 
 The plugin's [[startup|$:/plugins/ustuehler/github/modules/startup.js]] module gets executed after the core's [[miscellaneous startup logic|Startup]].
 

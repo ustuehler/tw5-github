@@ -1,0 +1,24 @@
+actors: TiddlyWikiUser TiddlyWikiApp GitHub GitHubPages
+basic-flow: GitHubPlugin/UseCases/CreateProjectWikiOnGitHubPagesFlow
+caption: Public Wiki on GitHub Pages
+created: 20171203195300700
+description: Any <<primaryActor>> can host a public TiddlyWikiApp on GitHubPages by saving this wiki to `index,html` in the `gh-pages` branch of any repository on GitHub, and then enabling the <<captionText variable:hostingService>> service for that repository.
+modified: 20171203205811716
+post-conditions: : <<publicURL>> hosts a self-sufficient <<app>>.
+pre-conditions: {{GitHubPlugin/UseCases/Preconditions}}
+tags: 
+title: GitHubPlugin/UseCases/PublicWikiOnGitHubPages
+type: text/vnd.tiddlywiki
+
+\define publicURL(org:"example" repo:"repo")
+https://$org$.github.io/$repo$
+\end
+<$set name="hostingService" value="GitHubPages">
+<$set name="app" value="TiddlyWikiApp">
+<$set name="publicURL" value=<<publicURL>>>
+
+{{||UseCaseTemplate}}
+
+</$set>
+</$set>
+</$set>

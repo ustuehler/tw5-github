@@ -53,7 +53,14 @@ A sync adaptor module for synchronising tiddlers with GitHub
     this.excludeFields = [FIELD_GITHUB_PATH]
 
     // Local cache of the skinny tiddler list, because reading and writing it can be slow
-    this.skinnyTiddlers = null
+    this.skinnyTiddlersPromise = null // non-null when getSkinnyTiddlersFromStore is pending
+    this.skinnyTiddlers = new SkinnyTiddlers({
+      /*
+       * Do not exclude the adaptorInfo fields, because we need hints in the
+       * skinny tiddler list to know in which file each tiddler is stored
+       */
+      excludeFields: []
+    })
 
     // The runtime configuration for this syncadaptor
     this.config = {
@@ -221,57 +228,131 @@ A sync adaptor module for synchronising tiddlers with GitHub
   /*
    * getSkinnyTiddlersFromStore retrieves a list of skinny tiddlers from the
    * configured GitHub repository. A skinny tiddler is just the fields of the
-   * tiddler, except for the "text" field.
+   * tiddler, except for the "text" field.  This function will always return a
+   * cached result (and an empty list initially), but starts an asynchronous
+   * Promise to update the cache, if none is currently pending.
    *
-   * For a GitHub tiddler that means that a skinny tiddler is the head section
-   * of a tiddler file, without the body, however it is not possible to fetch a
-   * limited amount of content from files in a GitHub repository. This is not
-   * true for tiddlers which are split into a text and a ".meta" tiddler, but
-   * they are not supported yet.
+   * Returning this list within a fixed time is important, because the syncer
+   * polls the skinny tiddler list at fixed time intervals (every minute), so
+   * it implicitly expects a result before the next interval starts.  However,
+   * due to rate limiting it can take significantly longer than a minute to
+   * load or compute the skinny tiddler list.  The syncer will get the updated
+   * result during its next update interval, after the asynchronous Promise has
+   * resolved, and after the skinny tildler file has optionally been created,
+   * which happens only if the user has signed in in the meantime.
    */
   GitHubAdaptor.prototype.getSkinnyTiddlersFromStore = function () {
-    var self = this
-
-    // Use the cached result, which may still be empty
-    if (this.skinnyTiddlers) {
-      return Promise.resolve(this.skinnyTiddlers.getTiddlers())
+    // Maintain an asynchronous Promise to keep the cache up-to-date
+    if (!this.skinnyTiddlersPromise) {
+      var self = this
+      var isComputed = false
+      this.skinnyTiddlersPromise = this.getTree()
+        .then(function (tree) {
+          console.debug('Getting skinny tiddler file:', SKINNY_TIDDLER_FILE)
+          return tree.getFileContent(SKINNY_TIDDLER_FILE)
+        })
+        .catch(function (err) {
+          if (!err.response || err.response.status !== 404) {
+            // Failed to load skinny tiddlers, but not because the file doesn't exist
+            console.debug('Failed to load the skinny tiddler file')
+            throw err
+          }
+          // Compute a new skinny tiddler list from the repository
+          isComputed = true
+          return self.getSkinnyTiddlersFromRepo()
+        })
+        .then(function (tiddlers) {
+          // Set the cache to the loaded or computed skinny tiddlers
+          console.debug('Setting skinny tiddlers cache:', tiddlers)
+          self.skinnyTiddlers.setTiddlers(tiddlers)
+          if (isComputed && self.isSignedIn()) {
+            // Store skinny tiddlers, so that no other client has to compute them again
+            return self.writeSkinnyTiddlerFile(tiddlers)
+          }
+          // Otherwise, load or compute them again the next time
+          return null
+        })
+        .then(function () {
+          // Loaded or computed, and optionally stored skinny tiddlers in the repository
+          self.skinnyTiddlersPromise = null
+          return null
+        })
+        .catch(function (err) {
+          // Failed to load, compute, or store the skinny tiddler list
+          self.skinnyTiddlersPromise = null
+          throw err
+        })
     }
-
-    // Load the skinny tiddler cache lazyly from a file, once
-    this.skinnyTiddlers = new SkinnyTiddlers({
-      /*
-       * Do not exclude the adaptorInfo fields, because we need hints in the
-       * skinny tiddler list to know in which file each tiddler is stored
-       */
-      excludeFields: []
-    })
-
-    return this.getTree()
-      .then(function (tree) {
-        console.debug('Getting skinny tiddler file')
-        return tree.getFileContent(SKINNY_TIDDLER_FILE)
-      })
-      .then(function (tiddlers) {
-        self.skinnyTiddlers.setTiddlers(tiddlers)
-        return tiddlers
-      })
-      .catch(function (err) {
-        // Create the file if it doen't exist
-        if (err.response && err.response.status == 404) {
-          console.debug('Creating skinny tiddler file')
-          return self.createSkinnyTiddlerFile()
-        }
-        throw err
-      })
+    // This is a Promise which resolves immediately, not the pending one
+    return Promise.resolve(this.skinnyTiddlers.getTiddlers())
   }
 
+  /*
+   * getSkinnyTiddlersFromRepo retrieves all tiddlers from the repository once
+   * to build up a new skinny tiddler list. This is an expensive operation and
+   * likely to run into API rate limiting issues, which must be resolevd here.
+   * Returns the same pending Promise until the previous one is either resolved
+   * or rejected.
+	 */
+  GitHubAdaptor.prototype.getSkinnyTiddlersFromRepo = function () {
+    if (!this._computeSkinnyTiddlers) {
+      var path = this.config.path
+      var self = this
+      this._computeSkinnyTiddlers = new Promise(function (resolve, reject) {
+        var getTiddlersFromFiles = [] // Promise list
+        console.debug('GitHubAdaptor.computeSkinnyTiddlers: calling getTree')
+        self.getTree()
+          .then(function (tree) {
+            console.debug('GitHubAdaptor.computeSkinnyTiddlers: getTree resolved to', tree)
+            console.debug('GitHubAdaptor.computeSkinnyTiddlers: walking tree', tree)
+            return tree.walk(function (node) {
+              if (node.type === 'file') {
+                var suffixes = ['.tid', '.meta']
+                $tw.utils.each(suffixes, function (suffix) {
+                  if (node.name.endsWith(suffix)) {
+                    var relpath = node.path.slice(path.length + 1)
+                    var fields = {title: relpath}
+                    var p = tree.loadTiddlersFromFile(node.name, fields)
+                    getTiddlersFromFiles.push(p)
+                  }
+                })
+              }
+              return true // recurse, if the node is a directory
+            })
+          })
+          .then(function () {
+            // tree.walk has finished, now wait for all tiddlers to be loaded
+            return Promise.all(getTiddlersFromFiles)
+          })
+          .then(function (tiddlersFromFiles) {
+            // tiddlersFromFiles contains an array of tiddlers per file
+            var tiddlers = flatten(tiddlersFromFiles)
+            // Strip the "text" field to make them skinny
+            $tw.utils.each(tiddlers, function (fields) {
+              delete(fields['text'])
+            })
+            self._computeSkinnyTiddlers = null
+            resolve(tiddlers)
+          })
+          .catch(function (err) {
+            self._computeSkinnyTiddlers = null
+            reject(err)
+          })
+      })
+    }
+    return this._computeSkinnyTiddlers
+  }
+
+  /*
+   * createSkinnyTiddlerFile creates a new skinny tiddler file from scratch
+   */
+  /*
   GitHubAdaptor.prototype.createSkinnyTiddlerFile = function () {
     // Compute the expected JSON content of the skinny tiddler file
     var self = this
     return this.computeSkinnyTiddlers()
       .then(function (tiddlers) {
         if (!self.isSignedIn()) {
-          console.debug('Unauthenticated users cannot write the skinny tiddler file')
           return tiddlers
         }
 
@@ -284,7 +365,7 @@ A sync adaptor module for synchronising tiddlers with GitHub
           })
           .catch(function (err) {
             // Return the computed skinny tiddlers array, anyway
-            console.debug('Ignored error writing skinny tiddler file: ' + err)
+            console.debug('Ignored error creating the skinny tiddler file: ' + err)
             return tiddlers
           })
       })
@@ -300,84 +381,38 @@ A sync adaptor module for synchronising tiddlers with GitHub
     var content = JSON.stringify(tiddlers, null, '  ')
     return this.writeSkinnyTiddlerFile(content)
   }
+  */
+  // TODO: remove dead code
 
-  GitHubAdaptor.prototype.computeSkinnyTiddlersFromWiki = function () {
+  /*
+   * getSkinnyTiddlersFromWiki resolves to a skinny tiddler list that is
+   * constructed only from the local wiki.  The list would be suitable to write
+   * to the skinny tiddler file on GitHub, if one does not yet exist, and if we
+   * have already computed the skinny tiddler list from the repository before,
+   * so that the local wiki is actually up-to-date.
+   */
+  /*
+  GitHubAdaptor.prototype.getSkinnyTiddlersFromWiki = function () {
     var skinnyTiddlers = []
     $tw.wiki.forEachTiddler({includeSystem: true}, function (title, tiddler) {
+      // FIXME: remove this filter when the "includedWikis" property in tiddlywiki.info files is supported
       if (!tiddler.hasField(FIELD_GITHUB_PATH)) {
-        // Only save known tiddlers back, because includedWikis from tiddlywiki.info files are not resolved yet
         return
       }
-
       var tiddlerFields = {}
       for (var f in tiddler.fields) {
         if (f !== 'text') {
           tiddlerFields[f] = tiddler.getFieldString(f)
         }
       }
-
       skinnyTiddlers.push(tiddlerFields)
     })
     return Promise.resolve(skinnyTiddlers)
   }
+  */
+  // TODO: remove dead code
 
   /*
-   * computeSkinnyTiddlers reads all existing tiddlers once to build an initial
-   * skinny tiddler list. This is an expensive operation and likely to run into
-   * API rate limiting issues, which must be resolevd here.
-	 */
-  GitHubAdaptor.prototype.computeSkinnyTiddlers = function () {
-    if (!this._computeSkinnyTiddlers) {
-      var path = this.config.path
-      var self = this
-
-      this._computeSkinnyTiddlers = new Promise(function (resolve, reject) {
-        var loadedTiddlers = []
-
-        console.debug('GitHubAdaptor.computeSkinnyTiddlers: calling getTree')
-        self.getTree()
-          .then(function (tree) {
-            console.debug('GitHubAdaptor.computeSkinnyTiddlers: getTree resolved to', tree)
-            console.debug('GitHubAdaptor.computeSkinnyTiddlers: walking tree', tree)
-            return tree.walk(function (node) {
-              if (node.type === 'file') {
-                var suffixes = ['.tid', '.meta']
-                $tw.utils.each(suffixes, function (suffix) {
-                  if (node.name.endsWith(suffix)) {
-                    var relpath = node.path.slice(path.length + 1)
-                    var fields = {title: relpath}
-                    var loadTiddlers = tree.loadTiddlersFromFile(node.name, fields)
-                    loadedTiddlers.push(loadTiddlers)
-                  }
-                })
-              }
-              return true // recurse, if the node is a directory
-            })
-          })
-          .then(function () {
-            return Promise.all(loadedTiddlers)
-          })
-          .then(function (tiddlersPerDir) {
-            var tiddlers = flatten(tiddlersPerDir)
-
-            // Make them skinny
-            $tw.utils.each(tiddlers, function (fields) {
-              delete(fields['text'])
-            })
-
-            self._computeSkinnyTiddlers = null
-            resolve(tiddlers)
-          })
-          .catch(function (err) {
-            console.debug('GitHubAdaptor.computeSkinnyTiddlers: err:', err)
-            self._computeSkinnyTiddlers = null
-            reject(err)
-          })
-      })
-    }
-    return this._computeSkinnyTiddlers
-  }
-
   GitHubAdaptor.prototype.writeSkinnyTiddlerFile = function (content) {
     return this.getTree()
       .then(function (tree) {
@@ -392,6 +427,7 @@ A sync adaptor module for synchronising tiddlers with GitHub
           })
       })
   }
+  */
 
   /*
    * getTiddlerInfoFromStore returns internal metadata about the tiddler, i.e.,

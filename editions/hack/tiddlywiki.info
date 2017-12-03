@@ -3,13 +3,15 @@
   "plugins": [
     "tiddlywiki/github-fork-ribbon",
     "tiddlywiki/filesystem",
+    "tiddlywiki/tiddlyweb",
     "ustuehler/caption",
     "ustuehler/core",
     "ustuehler/github",
     "ustuehler/mdc",
     "ustuehler/mdc-web",
     "ustuehler/mdc-web-cdn",
-    "ustuehler/muuri"
+    "ustuehler/muuri",
+    "ustuehler/usecase"
   ],
   "themes": [
     "tiddlywiki/vanilla",

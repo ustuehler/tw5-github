@@ -1,7 +1,8 @@
 created: 20171111234832070
-modified: 20171114034744499
+modified: 20171203203758614
 span: 12
 title: GitHubPlugin/Development/WriteFileButton
 type: text/vnd.tiddlywiki
+x-github-path: GitHubPlugin_Development_WriteFileButton.tid
 
 The {{||$:/plugins/ustuehler/github/Buttons/write-file}} button <<edit-tiddler-link to:"$:/plugins/ustuehler/github/Buttons/write-file" text:"(source)">> uploads the current tiddler to GitHub. 
