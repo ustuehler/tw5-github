@@ -1,0 +1,20 @@
+{
+    "description": "GitHub edition",
+    "plugins": [
+        "tiddlywiki/highlight",
+	"ustuehler/caption",
+	"ustuehler/core",
+	"ustuehler/github",
+	"ustuehler/mdc",
+	"ustuehler/mdc-web-cdn",
+	"ustuehler/muuri"
+    ],
+    "themes": [
+	"ustuehler/material"
+    ],
+    "build": {
+        "index": [
+	    "--output",".",
+	    "--rendertiddler","$:/core/save/all","index.html","text/plain"]
+    }
+}

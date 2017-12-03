@@ -1,0 +1,8 @@
+created: 20171106085959009
+modified: 20171203203755905
+tags: MissingFeatures
+title: GitHubPlugin/OAuthLogin
+type: text/vnd.tiddlywiki
+x-github-path: GitHubPlugin_OAuthLogin.tid
+
+The login feature was to be provided by the OAuthPlugin, but now the FirebasePlugin is used to handle the OAuth flow and to store GitHub credentials, instead.

@@ -1,0 +1,8 @@
+{
+	"title": "$:/plugins/ustuehler/github",
+	"version": "0.1.0",
+	"core-version": ">=5.1.14",
+	"author": "Uwe Stuehler",
+	"description": "GitHub API client and tiddler store",
+	"list": "readme license"
+}

@@ -1,0 +1,7 @@
+created: 20171203203218796
+modified: 20171203203334442
+tags: GitHubPlugin/UseCases/PublicWikiOnGitHubPages
+title: GitHubPlugin/UseCases/CreateProjectWikiOnGitHubPagesFlow
+type: text/vnd.tiddlywiki
+
+# The <<primaryActor>> opens the [[Save All|GitHubPlugin/SaveAll]] tiddler

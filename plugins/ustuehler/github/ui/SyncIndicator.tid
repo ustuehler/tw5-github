@@ -1,0 +1,4 @@
+title: $:/plugins/ustuehler/github/SyncIndicator
+tags: $:/tags/PageTemplate/ToolbarRight
+
+<$list variable="" filter=<<githubSynchronising>>><$link to="$:/github/Setup" class="material-icons mdc-toolbar__icon" aria-label="Open GitHub sync settings" alt="Open GitHub sync settings">{{$:/status/GitHubAdaptor!!icon}}</$link></$list><$list variable="" filter=<<githubNotSynchronising>>><$link to="$:/github/Setup" class="material-icons mdc-toolbar__icon" aria-label="Open GitHub sync settings" alt="Open GitHub sync settings">cloud_off</$link></$list>

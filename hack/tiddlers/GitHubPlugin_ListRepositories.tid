@@ -1,0 +1,26 @@
+created: 20171112053350353
+list: tw5-elite ustuehler.github.io tw5-material lxc-desktop keep-a-changelog git-cvs openbsd-ports openbsd-src monkey s2i-php-container docker-nethack bike tlsd TiddlyWiki5 puppet-fai docker firewall postfix-dovecot-cookbook todo-txt-gem kitchen-ec2 debian-package-builder-plugin openvpn-ssh-ca dep-selector-libgecode dymo-label docker-plugin rundeck-mcollective-nodes tests-ssh-hardening light limitless-led monkey-dashboard gnome-terminal-colors-solarized puppet-motd ruby_admin puppet-facter confluencer puppet-dashboard puppet-puppet pry-ops puppet-bacula puppet-cucumber puppet-ruby puppet-openssh puppet-debian puppet-openstack vim-ledger rspec-system pry puppetlabs-stdlib httpi facter mcollective-plugins marionette-collective jenkins
+modified: 20171203203757607
+span: 4
+tags: [[GitHub Pages]]
+title: GitHubPlugin/ListRepositories
+type: text/vnd.tiddlywiki
+x-github-path: GitHubPlugin_ListRepositories.tid
+
+\define filter() -[[]]
+\define listTiddler() $:/temp/GitHub/ListRepositories
+
+''When'' I activate the Refresh button
+
+<$github>
+<$button class="mdc-button mdc-button--raised">
+<$action-githublistrepos tiddler=<<listTiddler>> filter=<<filter>>/>
+Refresh
+</$button>
+</$github>
+
+''Then'' the list of my repositories on GitHub appears below
+
+<$list variable="repo" filter="[tag<listTiddler>]">
+<$text text=<<repo>>/><br>
+</$list>

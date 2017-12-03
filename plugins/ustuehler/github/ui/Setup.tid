@@ -1,0 +1,21 @@
+title: $:/github/Setup
+
+''Step 1: Obtain a personal access token''
+
+<$list variable="" filter=<<githubUserSignedOut>>>
+
+{{$:/github/AccessToken}}
+
+</$list>
+<$list variable="" filter=<<githubUserSignedIn>>>
+
+<span style="color: green;">The access token is valid and currently in use.</span>
+
+</$list>
+
+''Step 2: Sign in with this access token''
+
+{{$:/github/SignInOrOut}}
+
+[[Up|$:/plugins/ustuehler/github]] |
+[[Next|$:/github/SyncAdaptor]]

@@ -1,0 +1,6 @@
+title: $:/plugins/ustuehler/github/Buttons/sign-out
+
+<$button class="mdc-button mdc-button--raised">
+<$action-sendmessage $message="tm-github-sign-out"/>
+Sign out
+</$button>

@@ -1,0 +1,65 @@
+title: $:/plugins/ustuehler/github/Macros
+tags: $:/tags/Macro
+
+\define githubUserSignedIn()
+[[$:/status/GitHub]field:signed-in[true]]
+\end
+\define githubUserSignedOut()
+[[$:/status/GitHub]field:signed-in[false]]
+\end
+\define githubSynchronising()
+[[$:/status/GitHub]field:synchronising[true]]
+\end
+\define githubNotSynchronising()
+[[$:/status/GitHub]field:synchronising[false]]
+\end
+
+! Examples
+
+; githubUserSignedIn
+
+```
+<$list variable="" filter=<<githubUserSignedIn>>>
+
+~GitHub User is signed in.
+
+</$list>
+```
+
+<$list variable="" filter=<<githubUserSignedIn>>>
+
+~GitHub User is signed in.
+
+</$list>
+
+; githubUserSignedOut
+
+```
+<$list variable="" filter=<<githubUserSignedOut>>>
+
+~GitHub User is signed out.
+
+</$list>
+```
+
+<$list variable="" filter=<<githubUserSignedOut>>>
+
+~GitHub User is signed out.
+
+</$list>
+
+; githubSynchronising
+
+```
+<$list variable="" filter=<<githubSynchronising>>>
+
+~GitHubAdaptor is synchronising.
+
+</$list>
+```
+
+<$list variable="" filter=<<githubNotSynchronising>>>
+
+~GitHubAdaptor is not synchronising.
+
+</$list>

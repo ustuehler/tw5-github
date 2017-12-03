@@ -1,0 +1,11 @@
+created: 20171112214631744
+modified: 20171203203800592
+title: GitHubPlugin/Development/Startup
+type: text/vnd.tiddlywiki
+x-github-path: GitHubPlugin_Development_Startup.tid
+
+The plugin's [[startup|$:/plugins/ustuehler/github/modules/startup.js]] module gets executed after the core's [[miscellaneous startup logic|Startup]].
+
+This means that other parts of this plugin could already be executing as well, unless care is taken. Therefore, ''I don't want UI components to call plugin code directly''; they should rely entirely on event handling and messaging.
+
+[[Next|GitHubPlugin/SignIn]]

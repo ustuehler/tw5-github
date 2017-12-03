@@ -1,0 +1,32 @@
+created: 20171106112122119
+list: 
+modified: 20171203203753544
+span: 4
+tags: GitHubPlugin/OAuthLogin
+title: GitHubPlugin/SignInWithOAuth
+type: text/vnd.tiddlywiki
+x-github-path: GitHubPlugin_SignInWithOAuth.tid
+
+<span style="color: orange;">''This flow is incomplete.'' Follow the new sign-in flow described in [[GitHubPlugin/SignIn]].</span>
+
+<$github-signin>
+
+Signing in with your GitHub account lets you synchronize your changes with the GitRepository.
+
+''Step 1: Obtain a client ID and secret''
+
+{{GitHubPlugin/ObtainingClientCredentials}}
+
+''Step 2: Set client ID and secret for this application''
+
+<$button
+  to="OAuthSettings"
+  class="mdc-button mdc-button--raised"
+  style="color: white;"
+>Open Settings</$button>
+
+''Step 3: Sign in with your ~GitHub account''
+
+{{$:/plugins/ustuehler/github/Buttons/sign-in}}
+
+</$github-signin>

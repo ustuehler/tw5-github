@@ -1,0 +1,33 @@
+{
+  "description": "GitHub development edition",
+  "plugins": [
+    "tiddlywiki/github-fork-ribbon",
+    "tiddlywiki/filesystem",
+    "tiddlywiki/tiddlyweb",
+    "ustuehler/caption",
+    "ustuehler/core",
+    "ustuehler/github",
+    "ustuehler/mdc",
+    "ustuehler/mdc-web",
+    "ustuehler/mdc-web-cdn",
+    "ustuehler/muuri",
+    "ustuehler/usecase"
+  ],
+  "themes": [
+    "tiddlywiki/vanilla",
+    "tiddlywiki/snowwhite",
+    "ustuehler/material"
+  ],
+  "includeWikis": {
+    "path": "../github"
+  },
+  "build": {
+    "index": [
+      "--output",".",
+      "--rendertiddler","$:/core/save/all","hack.html","text/plain"
+    ]
+  },
+  "config": {
+    "retain-original-tiddler-path": true
+  }
+}

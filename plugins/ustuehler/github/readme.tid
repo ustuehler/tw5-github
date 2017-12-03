@@ -1,0 +1,5 @@
+title: $:/plugins/ustuehler/github/readme
+
+This plugin synchronises changed tiddlers with a repository on ~GitHub. It must be [[set up|$:/github/Setup]] before it can be used.
+
+The plugin includes the <a href="https://github.com/github-tools/github">~GitHub.js</a> client library, but does not curretly expose it directly.

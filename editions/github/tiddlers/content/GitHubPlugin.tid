@@ -1,0 +1,35 @@
+caption: GitHub Plugin
+created: 20171120040835296
+modified: 20171120041134954
+title: GitHubPlugin
+type: text/vnd.tiddlywiki
+
+\define pluginGroup() ustuehler
+\define pluginName() github
+\define pluginTitle() $:/plugins/$(pluginGroup)$/$(pluginName)$
+\define pluginTiddler(title) $(pluginTitle)$/$title$
+
+<table>
+  <tr>
+    <th>Plugin</th>
+    <td>$:/plugins/ustuehler/github</td>
+  </tr>
+  <tr>
+    <th>Dependencies</th>
+    <td>$:/plugins/ustuehler/core</td>
+  </tr>
+  <tr>
+    <th>Documentation</th>
+    <td>[[GitHubPlugin/Documentation]]</td>
+  </tr>
+</table>
+
+! Purpose
+
+The aim for this plugin is to provide a SyncAdaptor that can run in the browser as well as on the server side to synchronise tiddlers with a repository hosted on ~GitHub.
+
+! Usage
+
+You must be [[signed in|$:/github/Setup]] to synchronise changes with ~GitHub. Beyond that, this plugin should configure itself automatically when used with <a target="_blank" href={{GitHubPages!!url}}>~GitHub Pages</a>, but you can [[tweak the settings|$:/github/SyncAdaptor]] if you need to.
+
+[[Next|$:/github/Setup]]

@@ -1,0 +1,14 @@
+caption: Preconditions
+created: 20171203201528298
+modified: 20171203202842996
+tags: GitHubPlugin/UseCases/PublicWikiOnGitHubPages
+title: GitHubPlugin/UseCases/Preconditions
+type: text/vnd.tiddlywiki
+
+<$set name="primaryActor" value=<<primaryActor>> emptyValue="TiddlyWikiUser">
+<$set name="repo" value=<<repo>> emptyValue="GitHubRepository">
+
+* The <<primaryActor>> has an active user account on GitHub
+* The name of the <<repo>> does not end with `.github.io`. In these repositories, GitHubPages always serves from the `master` branch.
+
+</$set>

@@ -1,0 +1,10 @@
+created: 20171113220816832
+modified: 20171203203800597
+tags: 
+title: GitHubPlugin/Development/SignInButton
+type: text/vnd.tiddlywiki
+x-github-path: GitHubPlugin_Development_SignInButton.tid
+
+{{$:/plugins/ustuehler/github/ui/SignIn}}
+
+The button above creates an ActionSendMessageWidget with `tm-github-sign-in` as its `$message` attribute. The handler for this message is installed by the [[startup module|$:/plugins/ustuehler/github/modules/startup.js]].

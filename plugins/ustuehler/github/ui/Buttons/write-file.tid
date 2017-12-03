@@ -1,0 +1,16 @@
+title: $:/plugins/ustuehler/github/Buttons/write-file
+caption: <<material-icon "cloud_upload">> {{$:/language/Buttons/GitHubWriteFile/Caption}}
+description: {{$:/language/Buttons/GitHubWriteFile/Hint}}
+list-after: $:/themes/ustuehler/material/Buttons/clone
+
+<$button tooltip={{$:/language/Buttons/GitHubWriteFile/Hint}} aria-label={{$:/language/Buttons/GitHubWriteFile/Caption}} class=<<tv-config-toolbar-class>>>
+<$github>
+  <$action-githubwritefile branch={{$:/plugins/ustuehler/github/settings/branch}}/>
+</$github>
+<$list filter="[<tv-config-toolbar-icons>prefix[yes]]">
+<<material-icon "cloud_upload">>
+</$list>
+<$list filter="[<tv-config-toolbar-text>prefix[yes]]">
+<span class="tc-btn-text"><$text text={{$:/language/Buttons/GitHubWriteFile/Caption}}/></span>
+</$list>
+</$button>

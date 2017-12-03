@@ -1,0 +1,13 @@
+title: $:/github/SignInOrOut
+
+<$list variable="" filter=<<githubUserSignedIn>>>
+
+{{$:/github/SignedIn}}
+
+</$list>
+
+<$list variable="" filter=<<githubUserSignedOut>>>
+
+{{$:/github/SignIn}}
+
+</$list>
